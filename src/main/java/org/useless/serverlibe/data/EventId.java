@@ -3,6 +3,7 @@ package org.useless.serverlibe.data;
 import org.jetbrains.annotations.NotNull;
 import org.useless.serverlibe.callbacks.IEvent;
 import org.useless.serverlibe.callbacks.player.IPlayerDig;
+import org.useless.serverlibe.callbacks.player.IPlayerMovement;
 import org.useless.serverlibe.callbacks.player.IPlayerPlace;
 
 import java.util.Locale;
@@ -11,7 +12,10 @@ import java.util.Objects;
 public final class EventId<T extends IEvent> {
 	@NotNull
 	public static final EventId<IPlayerPlace> PLAYER_PLACE_EVENT_ID = new EventId<>("serverlibe$player_place", IPlayerPlace.class);
+	@NotNull
 	public static final EventId<IPlayerDig> PLAYER_DIG_EVENT_ID = new EventId<>("serverlibe$player_dig", IPlayerDig.class);
+	@NotNull
+	public static final EventId<IPlayerMovement> PLAYER_MOVE_EVENT_ID = new EventId<>("serverlibe$player_move", IPlayerMovement.class);
 	@NotNull
 	public final String identifier;
 	@NotNull

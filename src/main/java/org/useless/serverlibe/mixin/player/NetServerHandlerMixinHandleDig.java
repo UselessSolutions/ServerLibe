@@ -75,15 +75,15 @@ public class NetServerHandlerMixinHandleDig {
 	){
 		final EventContainer<IPlayerDig> digEventContainer = InternalStorageClass.getEventContainer(EventId.PLAYER_DIG_EVENT_ID);
 
-		boolean cancelDefaultPlace = false;
+		boolean cancelDefaultAction = false;
 		for (final Priority priority : Priority.values()){
 			final List<IPlayerDig> digEvents = digEventContainer.getEvents(priority, Order.BEFORE);
 			for (final IPlayerDig digEvent : digEvents){
-				cancelDefaultPlace |= digEvent.onDigEvent(playerDigEvent);
+				cancelDefaultAction |= digEvent.onDigEvent(playerDigEvent);
 			}
 		}
 
-        if (!cancelDefaultPlace){
+        if (!cancelDefaultAction){
 			defaultAction.run();
 		}
 

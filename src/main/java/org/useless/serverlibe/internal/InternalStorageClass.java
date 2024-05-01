@@ -4,6 +4,7 @@ import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.useless.serverlibe.callbacks.IEvent;
 import org.useless.serverlibe.callbacks.player.IPlayerDig;
+import org.useless.serverlibe.callbacks.player.IPlayerMovement;
 import org.useless.serverlibe.callbacks.player.IPlayerPlace;
 import org.useless.serverlibe.data.EventId;
 
@@ -23,6 +24,8 @@ public class InternalStorageClass {
 	public static final EventContainer<IPlayerPlace> playerPlaceEventContainer = registerEventContainer(EventId.PLAYER_PLACE_EVENT_ID, new EventContainer<>());
 	@NotNull
 	public static final EventContainer<IPlayerDig> playerDigEventContainer = registerEventContainer(EventId.PLAYER_DIG_EVENT_ID, new EventContainer<>());
+	@NotNull
+	public static final EventContainer<IPlayerMovement> playerMoveEventContainer = registerEventContainer(EventId.PLAYER_MOVE_EVENT_ID, new EventContainer<>());
 	public static <T extends IEvent> EventContainer<T> registerEventContainer(
 		@NotNull final EventId<T> id,
 		@NotNull final EventContainer<T> container)

@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "player.NetServerHandlerMixinHandleDig",
+    "player.NetServerHandlerMixinHandleMovement",
     "player.NetServerHandlerMixinHandlePlace"
   ],
   "client": [
