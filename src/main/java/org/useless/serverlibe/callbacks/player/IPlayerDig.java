@@ -4,5 +4,5 @@ import org.jetbrains.annotations.NotNull;
 import org.useless.serverlibe.callbacks.IEvent;
 @FunctionalInterface
 public interface IPlayerDig extends IEvent {
-	boolean onDigEvent(@NotNull final PlayerDigEvent placeEvent);
+	boolean onDigEvent(@NotNull final PlayerDigEvent digEvent);
 }

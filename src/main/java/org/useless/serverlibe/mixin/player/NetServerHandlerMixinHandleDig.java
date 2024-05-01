@@ -19,6 +19,7 @@ import org.useless.serverlibe.internal.EventContainer;
 import org.useless.serverlibe.internal.InternalStorageClass;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Mixin(value = NetServerHandler.class, remap = false)
 public class NetServerHandlerMixinHandleDig {
@@ -42,7 +43,7 @@ public class NetServerHandlerMixinHandleDig {
 			final int z,
 			@NotNull final Side side)
 	{
-		final PlayerDigEvent digEvent = new PlayerDigEvent(playerEntity, playerEntity.world, x, y, z, side);
+		final PlayerDigEvent digEvent = new PlayerDigEvent(playerEntity, playerEntity.world, x, y, z, side, PlayerDigEvent.START_MINING);
 		runEvents(digEvent, () -> instance.startMining(x, y, z, side));
 	}
 
@@ -63,9 +64,34 @@ public class NetServerHandlerMixinHandleDig {
 			final int z,
 			@NotNull final Side side)
 	{
-		final PlayerDigEvent digEvent = new PlayerDigEvent(playerEntity, playerEntity.world, x, y, z, side);
+		final PlayerDigEvent digEvent = new PlayerDigEvent(playerEntity, playerEntity.world, x, y, z, side, PlayerDigEvent.HIT_BLOCK);
 		runEvents(digEvent, () -> instance.hitBlock(x, y, z, side));
 	}
+	@Redirect
+		(
+			method = "handleBlockDig(Lnet/minecraft/core/net/packet/Packet14BlockDig;)V",
+			at = @At
+				(
+					value = "INVOKE",
+					target = "Lnet/minecraft/server/world/ServerPlayerController;destroyBlock(III)Z"
+				)
+
+		)
+	public boolean serverlibe$onBlockDestroy
+		(
+			@NotNull final ServerPlayerController instance,
+			final int x,
+			final int y,
+			final int z
+		)
+	{
+		AtomicBoolean blockBroken = new AtomicBoolean(false);
+		final PlayerDigEvent digEvent = new PlayerDigEvent(playerEntity, playerEntity.world, x, y, z, Side.NONE, PlayerDigEvent.DESTROY_BLOCK);
+		runEvents(digEvent, () -> blockBroken.set(blockBroken.get() | instance.destroyBlock(x, y, z)));
+
+		// Blocks which are instantly broken will still desync on client, seems to be a vanilla BTA bug
+        return blockBroken.get();
+    }
 
 	@Unique
 	private void runEvents

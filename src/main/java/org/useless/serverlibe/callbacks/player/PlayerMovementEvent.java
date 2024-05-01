@@ -14,6 +14,7 @@ public final class PlayerMovementEvent {
 	public final double xPosition;
 	public final double yPosition;
 	public final double zPosition;
+	public final double distanceMoved;
 	public final double stance;
 	public final float yaw;
 	public final float pitch;
@@ -28,6 +29,7 @@ public final class PlayerMovementEvent {
 		final double xPos,
 		final double yPos,
 		final double zPos,
+		final double distanceMoved,
 		final double stance,
 		final float yaw,
 		final float pitch,
@@ -41,6 +43,7 @@ public final class PlayerMovementEvent {
         this.xPosition = xPos;
         this.yPosition = yPos;
         this.zPosition = zPos;
+		this.distanceMoved = distanceMoved;
         this.stance = stance;
         this.yaw = yaw;
         this.pitch = pitch;

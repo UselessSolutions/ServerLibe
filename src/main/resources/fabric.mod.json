@@ -20,7 +20,10 @@
   "entrypoints": {
     "main": [
 			"org.useless.serverlibe.ServerLibe"
-    ]
+    ],
+		"serverlibe": [
+			"org.useless.serverlibe.debug.TestMain"
+		]
 	},
   "mixins": [
       "serverlibe.mixins.json"

@@ -24,23 +24,40 @@ public class NetServerHandlerMixinHandleMovement {
 	@Shadow
 	private EntityPlayerMP playerEntity;
 
+	@Shadow
+	private boolean hasMoved;
+
+	@Shadow
+	private double lastPosX;
+
+	@Shadow
+	private double lastPosY;
+
+	@Shadow
+	private double lastPosZ;
+
 	@Inject
 		(
 			method = "handleFlying(Lnet/minecraft/core/net/packet/Packet10Flying;)V",
 			at = @At(
-				value = "INVOKE",
-				target = "Lnet/minecraft/core/world/IVehicle;positionRider()V",
-				shift = At.Shift.BEFORE
+				"HEAD"
 			),
 			cancellable = true
 		)
 	public void serverlibe$handleMovementBefore(@NotNull final Packet10Flying packet, @NotNull final CallbackInfo ci){
+		final double distanceMoved = Math.sqrt(
+			Math.pow(
+				packet.xPosition - lastPosX, 2) +
+				Math.pow(packet.yPosition - lastPosY, 2) +
+				Math.pow(packet.zPosition - lastPosZ, 2));
+
 		final PlayerMovementEvent playerMovementEvent = new PlayerMovementEvent(
 			playerEntity,
 			playerEntity.world,
 			packet.xPosition,
 			packet.yPosition,
 			packet.zPosition,
+			distanceMoved,
 			packet.stance,
 			packet.yaw,
 			packet.pitch,
@@ -70,12 +87,19 @@ public class NetServerHandlerMixinHandleMovement {
 			)
 		)
 	public void serverlibe$handleMovementAfter(@NotNull final Packet10Flying packet, @NotNull final CallbackInfo ci){
+		final double distanceMoved = Math.sqrt(
+			Math.pow(
+				packet.xPosition - lastPosX, 2) +
+				Math.pow(packet.yPosition - lastPosY, 2) +
+				Math.pow(packet.zPosition - lastPosZ, 2));
+
 		final PlayerMovementEvent playerMovementEvent = new PlayerMovementEvent(
 			playerEntity,
 			playerEntity.world,
 			packet.xPosition,
 			packet.yPosition,
 			packet.zPosition,
+			distanceMoved,
 			packet.stance,
 			packet.yaw,
 			packet.pitch,
