@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "serverlibe",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This mod aims to help new BTA modders.",
+  "name": "ServerLibe",
+  "description": "Server side modding library.",
   "authors": [
-    "Turnip Labs"
+    "Useless"
   ],
   "contact": {
     "homepage": "",
@@ -14,25 +14,16 @@
   },
 
 	"icon": "icon.png",
-  "license": "CC0-1.0",
+  "license": "MIT",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-			"turniplabs.examplemod.ExampleMod"
-    ],
-		"beforeGameStart": [
-			"turniplabs.examplemod.ExampleMod"
-		],
-		"afterGameStart": [
-			"turniplabs.examplemod.ExampleMod"
-		],
-		"recipesReady": [
-			"turniplabs.examplemod.ExampleMod"
-		]
+			"org.useless.serverlibe.ServerLibe"
+    ]
 	},
   "mixins": [
-      "examplemod.mixins.json"
+      "serverlibe.mixins.json"
   ],
 
   "depends": {

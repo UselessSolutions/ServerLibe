@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "org.useless.serverlibe.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "player.NetServerHandlerMixinHandleDig",
+    "player.NetServerHandlerMixinHandlePlace"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
