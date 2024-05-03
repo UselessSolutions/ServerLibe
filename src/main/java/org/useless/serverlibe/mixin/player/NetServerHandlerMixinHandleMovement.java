@@ -9,25 +9,14 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.useless.serverlibe.callbacks.player.IPlayerMovement;
 import org.useless.serverlibe.callbacks.player.PlayerMovementEvent;
-import org.useless.serverlibe.data.EventId;
-import org.useless.serverlibe.data.Order;
-import org.useless.serverlibe.data.Priority;
-import org.useless.serverlibe.internal.EventContainer;
-import org.useless.serverlibe.internal.InternalStorageClass;
-
-import java.util.List;
 
 @Mixin(value = NetServerHandler.class, remap = false)
 public class NetServerHandlerMixinHandleMovement {
 	@Shadow
 	private EntityPlayerMP playerEntity;
 
-	@Shadow
-	private boolean hasMoved;
-
-	@Shadow
+    @Shadow
 	private double lastPosX;
 
 	@Shadow
@@ -51,7 +40,7 @@ public class NetServerHandlerMixinHandleMovement {
 				Math.pow(packet.yPosition - lastPosY, 2) +
 				Math.pow(packet.zPosition - lastPosZ, 2));
 
-		final PlayerMovementEvent playerMovementEvent = new PlayerMovementEvent(
+		final PlayerMovementEvent playerMovementEvent = PlayerMovementEvent.getEventContainer().runMethods(new PlayerMovementEvent(
 			playerEntity,
 			playerEntity.world,
 			packet.xPosition,
@@ -63,58 +52,8 @@ public class NetServerHandlerMixinHandleMovement {
 			packet.pitch,
 			packet.onGround,
 			packet.moving,
-			packet.rotating);
+			packet.rotating));
 
-		final EventContainer<IPlayerMovement> moveEventContainer = InternalStorageClass.getEventContainer(EventId.PLAYER_MOVE_EVENT_ID);
-
-		boolean cancelDefaultAction = false;
-		for (final Priority priority : Priority.values()){
-			final List<IPlayerMovement> moveEvents = moveEventContainer.getEvents(priority, Order.BEFORE);
-			for (final IPlayerMovement moveEvent : moveEvents){
-				cancelDefaultAction |= moveEvent.onPlayerMoved(playerMovementEvent);
-			}
-		}
-
-		if (cancelDefaultAction) ci.cancel();
-	}
-	@Inject
-		(
-			method = "handleFlying(Lnet/minecraft/core/net/packet/Packet10Flying;)V",
-			at = @At(
-				value = "INVOKE",
-				target = "Lnet/minecraft/server/entity/player/EntityPlayerMP;handleFalling(DZ)V",
-				shift = At.Shift.AFTER
-			)
-		)
-	public void serverlibe$handleMovementAfter(@NotNull final Packet10Flying packet, @NotNull final CallbackInfo ci){
-		final double distanceMoved = Math.sqrt(
-			Math.pow(
-				packet.xPosition - lastPosX, 2) +
-				Math.pow(packet.yPosition - lastPosY, 2) +
-				Math.pow(packet.zPosition - lastPosZ, 2));
-
-		final PlayerMovementEvent playerMovementEvent = new PlayerMovementEvent(
-			playerEntity,
-			playerEntity.world,
-			packet.xPosition,
-			packet.yPosition,
-			packet.zPosition,
-			distanceMoved,
-			packet.stance,
-			packet.yaw,
-			packet.pitch,
-			packet.onGround,
-			packet.moving,
-			packet.rotating);
-
-		final EventContainer<IPlayerMovement> moveEventContainer = InternalStorageClass.getEventContainer(EventId.PLAYER_MOVE_EVENT_ID);
-
-		for (final Priority priority : Priority.values()){
-			final List<IPlayerMovement> moveEvents = moveEventContainer.getEvents(priority, Order.AFTER);
-			for (final IPlayerMovement moveEvent : moveEvents){
-				moveEvent.onPlayerMoved(playerMovementEvent);
-			}
-		}
-
+		if (playerMovementEvent.isCancelled()) ci.cancel();
 	}
 }

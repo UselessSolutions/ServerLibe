@@ -4,10 +4,12 @@ import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.useless.serverlibe.api.event.ICancellable;
+import org.useless.serverlibe.internal.EventContainer;
 
 import java.util.Objects;
 
-public final class PlayerDigEvent {
+public final class PlayerDigEvent implements ICancellable {
 	public static final int START_MINING = 0;
 	public static final int HIT_BLOCK = 1;
 	public static final int DESTROY_BLOCK = 2;
@@ -40,4 +42,25 @@ public final class PlayerDigEvent {
         this.side = Objects.requireNonNull(side);
 		this.status = status;
     }
+
+	private boolean cancelled = false;
+	@Override
+	public boolean isCancelled() {
+		return cancelled;
+	}
+
+	@Override
+	public void setCancelled(boolean cancel) {
+		cancelled = cancel;
+	}
+	private static final EventContainer eventContainer = new EventContainer();
+	@NotNull
+	public EventContainer getEvents() {
+		return eventContainer;
+	}
+
+	@NotNull
+	public static EventContainer getEventContainer() {
+		return eventContainer;
+	}
 }

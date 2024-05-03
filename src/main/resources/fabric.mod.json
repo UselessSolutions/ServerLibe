@@ -22,7 +22,7 @@
 			"org.useless.serverlibe.ServerLibe"
     ],
 		"serverlibe": [
-			"org.useless.serverlibe.debug.TestMain"
+			"org.useless.test.TestMain"
 		]
 	},
   "mixins": [

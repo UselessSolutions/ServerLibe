@@ -6,10 +6,12 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.useless.serverlibe.api.event.ICancellable;
+import org.useless.serverlibe.internal.EventContainer;
 
 import java.util.Objects;
 
-public final class PlayerPlaceEvent {
+public final class PlayerPlaceEvent implements ICancellable {
 	@NotNull
 	public final EntityPlayer entityplayer;
 	@NotNull
@@ -44,4 +46,23 @@ public final class PlayerPlaceEvent {
         this.xPlaced = xPlaced;
         this.yPlaced = yPlaced;
     }
+	private boolean cancelled = false;
+	@Override
+	public boolean isCancelled() {
+		return cancelled;
+	}
+	@Override
+	public void setCancelled(boolean cancel) {
+		cancelled = cancel;
+	}
+	private static final EventContainer eventContainer = new EventContainer();
+	@NotNull
+	public EventContainer getEvents() {
+		return eventContainer;
+	}
+
+	@NotNull
+	public static EventContainer getEventContainer() {
+		return eventContainer;
+	}
 }

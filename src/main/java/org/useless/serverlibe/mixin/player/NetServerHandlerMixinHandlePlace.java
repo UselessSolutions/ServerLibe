@@ -11,15 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.useless.serverlibe.callbacks.player.IPlayerPlace;
 import org.useless.serverlibe.callbacks.player.PlayerPlaceEvent;
-import org.useless.serverlibe.data.EventId;
-import org.useless.serverlibe.data.Order;
-import org.useless.serverlibe.data.Priority;
-import org.useless.serverlibe.internal.EventContainer;
-import org.useless.serverlibe.internal.InternalStorageClass;
-
-import java.util.List;
 
 @Mixin(value = NetServerHandler.class, remap = false)
 public class NetServerHandlerMixinHandlePlace {
@@ -47,29 +39,14 @@ public class NetServerHandlerMixinHandlePlace {
 		final double yPlaced
 		)
 	{
-		final PlayerPlaceEvent playerPlaceEvent = new PlayerPlaceEvent(playerEntity, world, itemstack, x, y, z, side, xPlaced, yPlaced);
-		final EventContainer<IPlayerPlace> placeContainer = InternalStorageClass.getEventContainer(EventId.PLAYER_PLACE_EVENT_ID);
+		final PlayerPlaceEvent playerPlaceEvent = PlayerPlaceEvent.getEventContainer().runMethods(new PlayerPlaceEvent(playerEntity, world, itemstack, x, y, z, side, xPlaced, yPlaced));
 
-		boolean cancelDefaultPlace = false;
-		for (final Priority priority : Priority.values()){
-			final List<IPlayerPlace> placeEvents = placeContainer.getEvents(priority, Order.BEFORE);
-			for (final IPlayerPlace placeEvent : placeEvents){
-				cancelDefaultPlace |= placeEvent.onPlaceEvent(playerPlaceEvent);
-			}
-		}
 
 		final boolean returnVal;
-		if (!cancelDefaultPlace){
+		if (!playerPlaceEvent.isCancelled()){
 			returnVal = controller.activateBlockOrUseItem(playerEntity, world, itemstack, x, y, z, side, xPlaced, yPlaced);
 		} else {
 			returnVal = false;
-		}
-
-		for (final Priority priority : Priority.values()){
-			final List<IPlayerPlace> placeEvents = placeContainer.getEvents(priority, Order.AFTER);
-			for (final IPlayerPlace placeEvent : placeEvents){
-				placeEvent.onPlaceEvent(playerPlaceEvent);
-			}
 		}
 
 		return returnVal;

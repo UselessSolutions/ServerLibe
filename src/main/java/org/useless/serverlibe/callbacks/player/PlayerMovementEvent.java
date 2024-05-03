@@ -3,10 +3,12 @@ package org.useless.serverlibe.callbacks.player;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.useless.serverlibe.api.event.ICancellable;
+import org.useless.serverlibe.internal.EventContainer;
 
 import java.util.Objects;
 
-public final class PlayerMovementEvent {
+public final class PlayerMovementEvent implements ICancellable {
 	@NotNull
 	public final EntityPlayer player;
 	@NotNull
@@ -51,4 +53,24 @@ public final class PlayerMovementEvent {
         this.moving = moving;
         this.rotating = rotating;
     }
+	private boolean cancelled = false;
+	@Override
+	public boolean isCancelled() {
+		return cancelled;
+	}
+
+	@Override
+	public void setCancelled(boolean cancel) {
+		cancelled = cancel;
+	}
+	private static final EventContainer eventContainer = new EventContainer();
+	@NotNull
+	public EventContainer getEvents() {
+		return eventContainer;
+	}
+
+	@NotNull
+	public static EventContainer getEventContainer() {
+		return eventContainer;
+	}
 }

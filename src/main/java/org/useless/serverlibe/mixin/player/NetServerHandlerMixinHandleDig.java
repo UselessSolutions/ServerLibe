@@ -1,5 +1,6 @@
 package org.useless.serverlibe.mixin.player;
 
+import net.minecraft.core.net.packet.Packet53BlockChange;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.server.entity.player.EntityPlayerMP;
 import net.minecraft.server.net.handler.NetServerHandler;
@@ -10,15 +11,8 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.useless.serverlibe.callbacks.player.IPlayerDig;
 import org.useless.serverlibe.callbacks.player.PlayerDigEvent;
-import org.useless.serverlibe.data.EventId;
-import org.useless.serverlibe.data.Order;
-import org.useless.serverlibe.data.Priority;
-import org.useless.serverlibe.internal.EventContainer;
-import org.useless.serverlibe.internal.InternalStorageClass;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Mixin(value = NetServerHandler.class, remap = false)
@@ -89,7 +83,6 @@ public class NetServerHandlerMixinHandleDig {
 		final PlayerDigEvent digEvent = new PlayerDigEvent(playerEntity, playerEntity.world, x, y, z, Side.NONE, PlayerDigEvent.DESTROY_BLOCK);
 		runEvents(digEvent, () -> blockBroken.set(blockBroken.get() | instance.destroyBlock(x, y, z)));
 
-		// Blocks which are instantly broken will still desync on client, seems to be a vanilla BTA bug
         return blockBroken.get();
     }
 
@@ -99,25 +92,13 @@ public class NetServerHandlerMixinHandleDig {
 		@NotNull final PlayerDigEvent playerDigEvent,
 		@NotNull final Runnable defaultAction
 	){
-		final EventContainer<IPlayerDig> digEventContainer = InternalStorageClass.getEventContainer(EventId.PLAYER_DIG_EVENT_ID);
+		PlayerDigEvent.getEventContainer().runMethods(playerDigEvent);
 
-		boolean cancelDefaultAction = false;
-		for (final Priority priority : Priority.values()){
-			final List<IPlayerDig> digEvents = digEventContainer.getEvents(priority, Order.BEFORE);
-			for (final IPlayerDig digEvent : digEvents){
-				cancelDefaultAction |= digEvent.onDigEvent(playerDigEvent);
-			}
-		}
-
-        if (!cancelDefaultAction){
+		if (playerDigEvent.isCancelled()) {
+			// Restores the block on break if cancelled, this fixed the vanilla bug where instantly broken blocks don't reset
+			this.playerEntity.playerNetServerHandler.sendPacket(new Packet53BlockChange(playerDigEvent.x, playerDigEvent.y, playerDigEvent.z, playerDigEvent.world));
+		} else {
 			defaultAction.run();
-		}
-
-		for (final Priority priority : Priority.values()){
-			final List<IPlayerDig> digEvents = digEventContainer.getEvents(priority, Order.AFTER);
-			for (final IPlayerDig placeEvent : digEvents){
-				placeEvent.onDigEvent(playerDigEvent);
-			}
 		}
 	}
 }
