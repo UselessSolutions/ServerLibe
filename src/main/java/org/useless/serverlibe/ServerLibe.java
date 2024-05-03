@@ -32,7 +32,7 @@ public class ServerLibe implements ModInitializer {
 			if (m.isAnnotationPresent(EventListener.class)){
 				EventListener anno = m.getAnnotation(EventListener.class);
 				Type[] types = m.getGenericParameterTypes();
-				if (types.length != 1) throw new RuntimeException(String.format("Method '%s' in class '%s' has '%d' parameters, all event methods must have exactly 1!", m, listener.getClass().getName(), types.length));
+				if (types.length != 1) throw new RuntimeException(String.format("Method '%s' in class '%s' has '%d' parameters, all event methods must have exactly 1 parameter!", m, listener.getClass().getName(), types.length));
 				Class<? extends Event> event = (Class<? extends Event>) types[0];
                 try {
 					EventContainer eventContainer = (EventContainer) event.getMethod("getEventContainer", null).invoke(null);
