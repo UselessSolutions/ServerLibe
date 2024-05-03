@@ -24,7 +24,7 @@ public class NetServerHandlerMixinHandleChat {
 					target = "Lnet/minecraft/server/net/PlayerList;sendEncryptedChatToAllPlayers(Ljava/lang/String;)V"
 				)
 		)
-	private void onPlayerChat
+	private void serverlibe$onPlayerChat
 		(
 			@NotNull final PlayerList instance,
 			@NotNull final String message

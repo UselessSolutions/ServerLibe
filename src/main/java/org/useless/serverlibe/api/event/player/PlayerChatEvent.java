@@ -2,15 +2,12 @@ package org.useless.serverlibe.api.event.player;
 
 import net.minecraft.core.entity.player.EntityPlayer;
 import org.jetbrains.annotations.NotNull;
-import org.useless.serverlibe.api.event.Event;
 import org.useless.serverlibe.api.event.ICancellable;
 import org.useless.serverlibe.internal.EventContainer;
 
 import java.util.Objects;
 
-public class PlayerChatEvent extends Event implements ICancellable {
-	@NotNull
-	public final EntityPlayer player;
+public class PlayerChatEvent extends PlayerEvent implements ICancellable {
 	@NotNull
     public final String originalMessage;
 	@NotNull
@@ -22,8 +19,7 @@ public class PlayerChatEvent extends Event implements ICancellable {
 			@NotNull final String message
 		)
 	{
-
-        this.player = player;
+		super(player);
         this.originalMessage = message;
 		this.currentMessage = message;
     }

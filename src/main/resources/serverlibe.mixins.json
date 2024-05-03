@@ -7,7 +7,9 @@
     "player.NetServerHandlerMixinHandleChat",
     "player.NetServerHandlerMixinHandleDig",
     "player.NetServerHandlerMixinHandleMovement",
-    "player.NetServerHandlerMixinHandlePlace"
+    "player.NetServerHandlerMixinHandlePlace",
+    "server.MinecraftServerMixinHandleTick",
+    "world.WorldServerMixinHandleTick"
   ],
   "client": [
   ],

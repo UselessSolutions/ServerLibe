@@ -3,15 +3,12 @@ package org.useless.serverlibe.api.event.player;
 import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
-import org.useless.serverlibe.api.event.Event;
 import org.useless.serverlibe.api.event.ICancellable;
 import org.useless.serverlibe.internal.EventContainer;
 
 import java.util.Objects;
 
-public final class PlayerMovementEvent extends Event implements ICancellable {
-	@NotNull
-	public final EntityPlayer player;
+public class PlayerMovementEvent extends PlayerEvent implements ICancellable {
 	@NotNull
 	public final World world;
 	public final double xPosition;
@@ -41,7 +38,7 @@ public final class PlayerMovementEvent extends Event implements ICancellable {
 		final boolean rotating
 	)
 	{
-		this.player = Objects.requireNonNull(player);
+		super(player);
 		this.world = Objects.requireNonNull(world);
         this.xPosition = xPos;
         this.yPosition = yPos;
