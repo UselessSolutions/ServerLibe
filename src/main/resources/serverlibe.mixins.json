@@ -4,7 +4,9 @@
   "package": "org.useless.serverlibe.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "inventory.NetServerHandlerMixinHandleInventory",
+    "inventory.NetServerHandlerMixinHandleInventoryClick",
+    "inventory.NetServerHandlerMixinHandleInventoryCloseGUI",
+    "inventory.NetServerHandlerMixinHandleInventoryOpenGUI",
     "player.NetServerHandlerMixinHandleChat",
     "player.NetServerHandlerMixinHandleDig",
     "player.NetServerHandlerMixinHandleMovement",

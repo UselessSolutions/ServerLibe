@@ -9,8 +9,11 @@ import org.useless.serverlibe.api.enums.Priority;
 import org.useless.serverlibe.api.event.player.PlayerChatEvent;
 import org.useless.serverlibe.api.event.player.PlayerDigEvent;
 import org.useless.serverlibe.api.event.player.PlayerMovementEvent;
+import org.useless.serverlibe.api.event.player.inventory.InventoryClickEvent;
 import org.useless.serverlibe.api.event.player.inventory.InventoryCloseEvent;
 import org.useless.serverlibe.api.event.player.inventory.InventoryServerOpenEvent;
+
+import java.util.Arrays;
 
 public class TestPlugin implements Listener {
 	@EventListener
@@ -70,5 +73,10 @@ public class TestPlugin implements Listener {
 		if (!openEvent.isCancelled()){
 			openEvent.player.addChatMessage("[ServerLibe] GUI " + openEvent.windowTitle + " opened");
 		}
+	}
+	@EventListener
+	public void onGuiClick(InventoryClickEvent clickEvent){
+		clickEvent.player.addChatMessage(String.format("[ServerLibe] action: %s, args: %s, actionID: %s, Itemstack: %s", clickEvent.action, Arrays.toString(clickEvent.args), clickEvent.actionId, clickEvent.itemStack));
+		clickEvent.setCancelled(true);
 	}
 }

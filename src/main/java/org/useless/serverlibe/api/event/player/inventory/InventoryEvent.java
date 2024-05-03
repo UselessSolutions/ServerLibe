@@ -2,9 +2,13 @@ package org.useless.serverlibe.api.event.player.inventory;
 
 import net.minecraft.core.entity.player.EntityPlayer;
 import org.jetbrains.annotations.NotNull;
-import org.useless.serverlibe.api.event.player.PlayerEvent;
+import org.useless.serverlibe.api.event.Event;
 
-abstract class InventoryEvent extends PlayerEvent {
+import java.util.Objects;
+
+abstract class InventoryEvent extends Event {
+	@NotNull
+	public final EntityPlayer player;
 	public final int windowID;
 	public InventoryEvent
 		(
@@ -12,7 +16,7 @@ abstract class InventoryEvent extends PlayerEvent {
 		final int windowID
 		)
 	{
-		super(player);
+		this.player = Objects.requireNonNull(player);
 		this.windowID = windowID;
 	}
 }
