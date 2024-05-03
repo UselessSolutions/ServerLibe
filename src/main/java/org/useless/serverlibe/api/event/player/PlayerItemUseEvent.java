@@ -1,44 +1,28 @@
 package org.useless.serverlibe.api.event.player;
 
 import net.minecraft.core.entity.player.EntityPlayer;
-import net.minecraft.core.util.helper.Side;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.useless.serverlibe.api.event.Cancellable;
 import org.useless.serverlibe.internal.EventContainer;
 
-import java.util.Objects;
+public class PlayerItemUseEvent extends PlayerEvent implements Cancellable {
+	@NotNull
+    public final World world;
+	@NotNull
+    public final ItemStack itemstack;
 
-public class PlayerDigEvent extends PlayerEvent implements Cancellable {
-	public static final int START_MINING = 0;
-	public static final int HIT_BLOCK = 1;
-	public static final int DESTROY_BLOCK = 2;
-	@NotNull
-	public final World world;
-	public final int x;
-	public final int y;
-	public final int z;
-	@NotNull
-	public final Side side;
-	public final int status;
-	public PlayerDigEvent
+    public PlayerItemUseEvent
 		(
 			@NotNull final EntityPlayer player,
 			@NotNull final World world,
-			final int x,
-			final int y,
-			final int z,
-			@NotNull final Side side,
-			final int status
+			@NotNull final ItemStack itemstack
 		)
 	{
 		super(player);
-        this.world = Objects.requireNonNull(world);
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.side = Objects.requireNonNull(side);
-		this.status = status;
+        this.world = world;
+        this.itemstack = itemstack;
     }
 
 	private boolean cancelled = false;
@@ -46,7 +30,6 @@ public class PlayerDigEvent extends PlayerEvent implements Cancellable {
 	public boolean isCancelled() {
 		return cancelled;
 	}
-
 	@Override
 	public void setCancelled(boolean cancel) {
 		cancelled = cancel;

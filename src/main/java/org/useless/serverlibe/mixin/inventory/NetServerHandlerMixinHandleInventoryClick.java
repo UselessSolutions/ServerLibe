@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class NetServerHandlerMixinHandleInventoryClick {
 	@Shadow
 	private EntityPlayerMP playerEntity;
-	
+
 	@Inject
 		(
 			method = "handleWindowClick",

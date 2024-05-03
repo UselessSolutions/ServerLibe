@@ -1,6 +1,6 @@
 package org.useless.serverlibe.api.event;
 
-public interface ICancellable {
+public interface Cancellable {
 	boolean isCancelled();
 	void setCancelled(boolean cancel);
 }

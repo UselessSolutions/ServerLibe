@@ -1,46 +1,40 @@
 package org.useless.serverlibe.api.event.player;
 
+import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.EntityPlayer;
-import net.minecraft.core.util.helper.Side;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.useless.serverlibe.api.event.Cancellable;
 import org.useless.serverlibe.internal.EventContainer;
 
 import java.util.Objects;
 
-public class PlayerDigEvent extends PlayerEvent implements Cancellable {
-	public static final int START_MINING = 0;
-	public static final int HIT_BLOCK = 1;
-	public static final int DESTROY_BLOCK = 2;
+public class PlayerEntityInteractEvent extends PlayerEvent implements Cancellable {
+	public static final int LEFT_MOUSE_BUTTON = 1;
+	public static final int RIGHT_MOUSE_BUTTON = 1;
 	@NotNull
 	public final World world;
-	public final int x;
-	public final int y;
-	public final int z;
+	@Nullable
+	public final ItemStack itemstack;
 	@NotNull
-	public final Side side;
-	public final int status;
-	public PlayerDigEvent
+    public final Entity targetEntity;
+    public final int mouseButton;
+
+    public PlayerEntityInteractEvent
 		(
 			@NotNull final EntityPlayer player,
 			@NotNull final World world,
-			final int x,
-			final int y,
-			final int z,
-			@NotNull final Side side,
-			final int status
-		)
-	{
+			@Nullable final ItemStack itemstack,
+			@NotNull final Entity targetEntity,
+			final int mouseButton) {
 		super(player);
-        this.world = Objects.requireNonNull(world);
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.side = Objects.requireNonNull(side);
-		this.status = status;
+		this.world = Objects.requireNonNull(world);
+		this.itemstack = itemstack;
+        this.targetEntity = Objects.requireNonNull(targetEntity);
+        this.mouseButton = mouseButton;
     }
-
 	private boolean cancelled = false;
 	@Override
 	public boolean isCancelled() {

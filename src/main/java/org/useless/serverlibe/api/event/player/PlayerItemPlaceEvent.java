@@ -6,12 +6,12 @@ import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.useless.serverlibe.api.event.ICancellable;
+import org.useless.serverlibe.api.event.Cancellable;
 import org.useless.serverlibe.internal.EventContainer;
 
 import java.util.Objects;
 
-public class PlayerPlaceEvent extends PlayerEvent implements ICancellable {
+public class PlayerItemPlaceEvent extends PlayerEvent implements Cancellable {
 	@NotNull
 	public final World world;
 	@Nullable
@@ -23,7 +23,7 @@ public class PlayerPlaceEvent extends PlayerEvent implements ICancellable {
 	public final Side side;
 	public final double xPlaced;
 	public final double yPlaced;
-	public PlayerPlaceEvent(
+	public PlayerItemPlaceEvent(
 		@NotNull final EntityPlayer entityplayer,
 		@NotNull final World world,
 		@Nullable final ItemStack itemstack,

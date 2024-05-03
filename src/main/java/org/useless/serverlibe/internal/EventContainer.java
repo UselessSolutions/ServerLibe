@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import org.useless.serverlibe.api.Listener;
 import org.useless.serverlibe.api.annotations.EventListener;
 import org.useless.serverlibe.api.enums.Priority;
-import org.useless.serverlibe.api.event.ICancellable;
+import org.useless.serverlibe.api.event.Cancellable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -31,7 +31,7 @@ public final class EventContainer {
 			final List<EventEntry> entries = priorityEventCallbackMap.get(priority);
 			if (entries != null){
 				for (final EventEntry entry : entries){
-					if (event instanceof ICancellable && ((ICancellable) event).isCancelled() && entry.annotation.ignoreCancelled()) continue; // Skip methods which are set to not run when event has been cancelled
+					if (event instanceof Cancellable && ((Cancellable) event).isCancelled() && entry.annotation.ignoreCancelled()) continue; // Skip methods which are set to not run when event has been cancelled
                     try {
                         entry.event.invoke(entry.listener, event);
                     } catch (IllegalAccessException | InvocationTargetException e) {

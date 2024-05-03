@@ -1,19 +1,29 @@
 package org.useless.test;
 
+import net.minecraft.core.entity.Entity;
+import net.minecraft.core.entity.EntityLightningBolt;
+import net.minecraft.core.entity.projectile.EntityFireball;
+import net.minecraft.core.item.Item;
+import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.net.packet.Packet63SpawnParticleEffect;
+import net.minecraft.core.util.helper.MathHelper;
+import net.minecraft.core.util.phys.Vec3d;
 import net.minecraft.server.entity.player.EntityPlayerMP;
 import org.useless.serverlibe.api.Listener;
 import org.useless.serverlibe.api.annotations.EventListener;
 import org.useless.serverlibe.api.enums.Priority;
 import org.useless.serverlibe.api.event.player.PlayerChatEvent;
 import org.useless.serverlibe.api.event.player.PlayerDigEvent;
+import org.useless.serverlibe.api.event.player.PlayerEntityInteractEvent;
+import org.useless.serverlibe.api.event.player.PlayerItemUseEvent;
 import org.useless.serverlibe.api.event.player.PlayerMovementEvent;
 import org.useless.serverlibe.api.event.player.inventory.InventoryClickEvent;
 import org.useless.serverlibe.api.event.player.inventory.InventoryCloseEvent;
 import org.useless.serverlibe.api.event.player.inventory.InventoryServerOpenEvent;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class TestPlugin implements Listener {
 	@EventListener
@@ -52,14 +62,40 @@ public class TestPlugin implements Listener {
 		String payload = TextFormatting.LIME + vals[1].substring(0, greenChars/2) + TextFormatting.RED + vals[1].substring(greenChars/2, vals[1].length() - (greenChars/2)) + TextFormatting.LIME + vals[1].substring(vals[1].length() - (greenChars/2));
 		chatEvent.setMessage(vals[0] + "> " + payload);
 	}
-//	@EventListener(priority = Priority.HIGH, ignoreCancelled = true)
-//	public void useSaddleSpecial(PlayerPlaceEvent placeEvent){
-//		ItemStack heldItem = placeEvent.itemstack;
-//		if (heldItem != null && heldItem.hasCustomName() && heldItem.getCustomName().equals("Wrangler")){
-//			placeEvent.
-//			placeEvent.setCancelled(true);
-//		}
-//	}
+	@EventListener(priority = Priority.HIGH, ignoreCancelled = true)
+	public void useSaddleSpecial(PlayerItemUseEvent useEvent){
+		ItemStack heldItem = useEvent.itemstack;
+		useEvent.player.addChatMessage("[ServerLibe] item right click");
+		if (heldItem.hasCustomName() && heldItem.getCustomName().equalsIgnoreCase("wrangler")){
+			List<Entity> entities = useEvent.world.getEntitiesWithinAABBExcludingEntity(useEvent.player, useEvent.player.bb.expand(4, 2, 4));
+			if (entities.isEmpty()) return;
+			useEvent.player.startRiding(entities.get(0));
+			useEvent.setCancelled(true);
+		}
+	}
+	@EventListener(priority = Priority.HIGH, ignoreCancelled = true)
+	public void useStickSpecial(PlayerItemUseEvent useEvent){
+		if (useEvent.itemstack.getItem() == Item.stick){
+			Vec3d look = useEvent.player.getLookAngle();
+			double vX = look.xCoord;
+			double vY = look.yCoord;
+			double vZ = look.zCoord;
+			EntityFireball fireball = new EntityFireball(useEvent.world, useEvent.player, vX, vY, vZ);
+			fireball.y += 0.9f;
+			double velocity = MathHelper.sqrt_double(vX * vX + vY * vY + vZ * vZ);
+			if (velocity != 0.0) {
+				fireball.accelX = vX / velocity * 0.1;
+				fireball.accelY = vY / velocity * 0.1;
+				fireball.accelZ = vZ / velocity * 0.1;
+			} else {
+				fireball.accelX = 0.0;
+				fireball.accelY = 0.0;
+				fireball.accelZ = 0.0;
+			}
+			useEvent.world.entityJoinedWorld(fireball);
+			useEvent.setCancelled(true);
+		}
+	}
 	@EventListener
 	public void onGuiClose(InventoryCloseEvent closeEvent){
 		closeEvent.player.addChatMessage("[ServerLibe] GUI closed");
@@ -77,6 +113,15 @@ public class TestPlugin implements Listener {
 	@EventListener
 	public void onGuiClick(InventoryClickEvent clickEvent){
 		clickEvent.player.addChatMessage(String.format("[ServerLibe] action: %s, args: %s, actionID: %s, Itemstack: %s", clickEvent.action, Arrays.toString(clickEvent.args), clickEvent.actionId, clickEvent.itemStack));
-		clickEvent.setCancelled(true);
+//		clickEvent.setCancelled(true);
+	}
+	@EventListener
+	public void onAttack(PlayerEntityInteractEvent interactEvent){
+		interactEvent.player.addChatMessage(String.format("[ServerLibe] target: %s, mouseButton: %d", interactEvent.targetEntity, interactEvent.mouseButton));
+		if (interactEvent.itemstack != null && interactEvent.itemstack.getItem() == Item.stick){
+			EntityLightningBolt lightningBolt = new EntityLightningBolt(interactEvent.world, interactEvent.targetEntity.x, interactEvent.targetEntity.y, interactEvent.targetEntity.z);
+			interactEvent.world.addWeatherEffect(lightningBolt);
+			interactEvent.setCancelled(true);
+		}
 	}
 }

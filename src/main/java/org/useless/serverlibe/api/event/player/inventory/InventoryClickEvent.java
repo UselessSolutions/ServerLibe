@@ -5,12 +5,12 @@ import net.minecraft.core.entity.player.EntityPlayer;
 import net.minecraft.core.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.useless.serverlibe.api.event.ICancellable;
+import org.useless.serverlibe.api.event.Cancellable;
 import org.useless.serverlibe.internal.EventContainer;
 
 import java.util.Objects;
 
-public class InventoryClickEvent extends InventoryEvent implements ICancellable {
+public class InventoryClickEvent extends InventoryEvent implements Cancellable {
 	@NotNull
 	public InventoryAction action;
 	public int[] args;

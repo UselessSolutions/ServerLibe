@@ -2,12 +2,12 @@ package org.useless.serverlibe.api.event.player.inventory;
 
 import net.minecraft.core.entity.player.EntityPlayer;
 import org.jetbrains.annotations.NotNull;
-import org.useless.serverlibe.api.event.ICancellable;
+import org.useless.serverlibe.api.event.Cancellable;
 import org.useless.serverlibe.internal.EventContainer;
 
 import java.util.Objects;
 
-public class InventoryServerOpenEvent extends InventoryEvent implements ICancellable {
+public class InventoryServerOpenEvent extends InventoryEvent implements Cancellable {
     public final int inventoryType;
 	@NotNull
     public final String windowTitle;

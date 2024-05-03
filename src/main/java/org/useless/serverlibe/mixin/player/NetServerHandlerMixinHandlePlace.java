@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.useless.serverlibe.api.event.player.PlayerPlaceEvent;
+import org.useless.serverlibe.api.event.player.PlayerItemPlaceEvent;
 
 @Mixin(value = NetServerHandler.class, remap = false)
 public class NetServerHandlerMixinHandlePlace {
@@ -39,11 +39,11 @@ public class NetServerHandlerMixinHandlePlace {
 		final double yPlaced
 		)
 	{
-		final PlayerPlaceEvent playerPlaceEvent = PlayerPlaceEvent.getEventContainer().runMethods(new PlayerPlaceEvent(playerEntity, world, itemstack, x, y, z, side, xPlaced, yPlaced));
+		final PlayerItemPlaceEvent playerItemPlaceEvent = PlayerItemPlaceEvent.getEventContainer().runMethods(new PlayerItemPlaceEvent(playerEntity, world, itemstack, x, y, z, side, xPlaced, yPlaced));
 
 
 		final boolean returnVal;
-		if (!playerPlaceEvent.isCancelled()){
+		if (!playerItemPlaceEvent.isCancelled()){
 			returnVal = controller.activateBlockOrUseItem(playerEntity, world, itemstack, x, y, z, side, xPlaced, yPlaced);
 		} else {
 			returnVal = false;

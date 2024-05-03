@@ -9,8 +9,10 @@
     "inventory.NetServerHandlerMixinHandleInventoryOpenGUI",
     "player.NetServerHandlerMixinHandleChat",
     "player.NetServerHandlerMixinHandleDig",
+    "player.NetServerHandlerMixinHandleEntityInteract",
     "player.NetServerHandlerMixinHandleMovement",
     "player.NetServerHandlerMixinHandlePlace",
+    "player.NetServerHandlerMixinItemUse",
     "server.MinecraftServerMixinHandleTick",
     "world.WorldServerMixinHandleTick"
   ],
