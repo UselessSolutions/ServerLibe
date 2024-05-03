@@ -1,7 +1,7 @@
 package org.useless.serverlibe.api.annotations;
 
 import org.jetbrains.annotations.NotNull;
-import org.useless.serverlibe.data.Priority;
+import org.useless.serverlibe.api.enums.Priority;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

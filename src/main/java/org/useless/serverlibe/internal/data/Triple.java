@@ -1,4 +1,4 @@
-package org.useless.serverlibe.data;
+package org.useless.serverlibe.internal.data;
 
 public class Triple<A, B, C> {
 	public A first;

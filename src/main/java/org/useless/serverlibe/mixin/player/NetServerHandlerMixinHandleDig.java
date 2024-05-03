@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.useless.serverlibe.callbacks.player.PlayerDigEvent;
+import org.useless.serverlibe.api.event.player.PlayerDigEvent;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

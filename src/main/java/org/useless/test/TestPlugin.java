@@ -4,9 +4,9 @@ import net.minecraft.core.net.packet.Packet63SpawnParticleEffect;
 import net.minecraft.server.entity.player.EntityPlayerMP;
 import org.useless.serverlibe.api.Listener;
 import org.useless.serverlibe.api.annotations.EventListener;
-import org.useless.serverlibe.callbacks.player.PlayerDigEvent;
-import org.useless.serverlibe.callbacks.player.PlayerMovementEvent;
-import org.useless.serverlibe.data.Priority;
+import org.useless.serverlibe.api.event.player.PlayerDigEvent;
+import org.useless.serverlibe.api.event.player.PlayerMovementEvent;
+import org.useless.serverlibe.api.enums.Priority;
 
 public class TestPlugin implements Listener {
 	@EventListener

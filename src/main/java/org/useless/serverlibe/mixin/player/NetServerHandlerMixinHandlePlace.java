@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.useless.serverlibe.callbacks.player.PlayerPlaceEvent;
+import org.useless.serverlibe.api.event.player.PlayerPlaceEvent;
 
 @Mixin(value = NetServerHandler.class, remap = false)
 public class NetServerHandlerMixinHandlePlace {
