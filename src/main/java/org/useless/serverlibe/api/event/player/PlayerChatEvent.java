@@ -20,8 +20,8 @@ public class PlayerChatEvent extends PlayerEvent implements ICancellable {
 		)
 	{
 		super(player);
-        this.originalMessage = message;
-		this.currentMessage = message;
+        this.originalMessage = Objects.requireNonNull(message);
+		this.currentMessage = this.originalMessage;
     }
 	public void setMessage(@NotNull final String newMessage){
 		this.currentMessage = Objects.requireNonNull(newMessage);

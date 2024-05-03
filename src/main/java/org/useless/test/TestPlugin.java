@@ -5,10 +5,12 @@ import net.minecraft.core.net.packet.Packet63SpawnParticleEffect;
 import net.minecraft.server.entity.player.EntityPlayerMP;
 import org.useless.serverlibe.api.Listener;
 import org.useless.serverlibe.api.annotations.EventListener;
+import org.useless.serverlibe.api.enums.Priority;
 import org.useless.serverlibe.api.event.player.PlayerChatEvent;
 import org.useless.serverlibe.api.event.player.PlayerDigEvent;
 import org.useless.serverlibe.api.event.player.PlayerMovementEvent;
-import org.useless.serverlibe.api.enums.Priority;
+import org.useless.serverlibe.api.event.player.inventory.InventoryCloseEvent;
+import org.useless.serverlibe.api.event.player.inventory.InventoryServerOpenEvent;
 
 public class TestPlugin implements Listener {
 	@EventListener
@@ -46,5 +48,27 @@ public class TestPlugin implements Listener {
 		final int greenChars = (int) (vals[1].length() * greenPercent);
 		String payload = TextFormatting.LIME + vals[1].substring(0, greenChars/2) + TextFormatting.RED + vals[1].substring(greenChars/2, vals[1].length() - (greenChars/2)) + TextFormatting.LIME + vals[1].substring(vals[1].length() - (greenChars/2));
 		chatEvent.setMessage(vals[0] + "> " + payload);
+	}
+//	@EventListener(priority = Priority.HIGH, ignoreCancelled = true)
+//	public void useSaddleSpecial(PlayerPlaceEvent placeEvent){
+//		ItemStack heldItem = placeEvent.itemstack;
+//		if (heldItem != null && heldItem.hasCustomName() && heldItem.getCustomName().equals("Wrangler")){
+//			placeEvent.
+//			placeEvent.setCancelled(true);
+//		}
+//	}
+	@EventListener
+	public void onGuiClose(InventoryCloseEvent closeEvent){
+		closeEvent.player.addChatMessage("[ServerLibe] GUI closed");
+	}
+	@EventListener
+	public void onGuiOpen(InventoryServerOpenEvent openEvent){
+		if (openEvent.windowTitle.equals("Crafting")){
+			openEvent.player.addChatMessage("[ServerLibe] you are not allowed to open workbenches on this server");
+			openEvent.setCancelled(true);
+		}
+		if (!openEvent.isCancelled()){
+			openEvent.player.addChatMessage("[ServerLibe] GUI " + openEvent.windowTitle + " opened");
+		}
 	}
 }

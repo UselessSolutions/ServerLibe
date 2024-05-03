@@ -6,7 +6,7 @@ import org.useless.serverlibe.api.event.Event;
 
 import java.util.Objects;
 
-abstract class PlayerEvent extends Event {
+public class PlayerEvent extends Event {
 	@NotNull
     public final EntityPlayer player;
     public PlayerEvent(@NotNull final EntityPlayer player){
