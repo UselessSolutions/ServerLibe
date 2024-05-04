@@ -7,7 +7,7 @@ public interface ServerLibeEntrypoint {
 	 * ServerLibe can properly manage it's loading process.
 	 * <p>
 	 *     Entrypoint identifier is {@code serverlibe}.
-	 * <p/>
+	 * </p>
 	 *
 	 * @author Useless
 	 * @since beta-1

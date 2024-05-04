@@ -8,7 +8,7 @@ package org.useless.serverlibe.api.event;
  * {@code public EventContainer getEvents()}
  * and a {@code public static EventContainer getEventContainer()}
  * in order to function
- * <b/>
+ * </b>
  *
  * @author Useless
  * @since beta-1
