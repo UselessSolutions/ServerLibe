@@ -21,7 +21,10 @@
     "player.NetServerHandlerMixinHandlePlace",
     "player.NetServerHandlerMixinItemUse",
     "server.MinecraftServerMixinHandleTick",
-    "world.WorldServerMixinHandleTick"
+    "world.WorldServerMixinHandleTick",
+    "world.decorator.ChunkDecoratorNetherMixin",
+    "world.decorator.ChunkDecoratorOverworldHellMixin",
+    "world.decorator.ChunkDecoratorOverworldMixin"
   ],
   "injectors": {
     "defaultRequire": 1

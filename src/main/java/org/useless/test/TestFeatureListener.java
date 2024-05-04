@@ -1,5 +1,6 @@
 package org.useless.test;
 
+import net.minecraft.core.block.Block;
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.EntityLightningBolt;
 import net.minecraft.core.entity.projectile.EntityFireball;
@@ -9,6 +10,7 @@ import net.minecraft.core.net.command.TextFormatting;
 import net.minecraft.core.net.packet.Packet63SpawnParticleEffect;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.Vec3d;
+import net.minecraft.core.world.generate.feature.WorldFeatureLake;
 import net.minecraft.server.entity.player.EntityPlayerMP;
 import org.useless.serverlibe.api.Listener;
 import org.useless.serverlibe.api.annotations.EventListener;
@@ -18,6 +20,7 @@ import org.useless.serverlibe.api.event.player.PlayerDigEvent;
 import org.useless.serverlibe.api.event.player.PlayerEntityInteractEvent;
 import org.useless.serverlibe.api.event.player.PlayerItemUseEvent;
 import org.useless.serverlibe.api.event.player.PlayerMovementEvent;
+import org.useless.serverlibe.api.event.world.ChunkDecorateEvent;
 
 import java.util.List;
 
@@ -97,6 +100,12 @@ public class TestFeatureListener implements Listener {
 			EntityLightningBolt lightningBolt = new EntityLightningBolt(interactEvent.world, interactEvent.targetEntity.x, interactEvent.targetEntity.y, interactEvent.targetEntity.z);
 			interactEvent.world.addWeatherEffect(lightningBolt);
 			interactEvent.setCancelled(true);
+		}
+	}
+	@EventListener
+	public void decorate(ChunkDecorateEvent decorateEvent){
+		for (int i = 0; i < 4; i++) {
+			new WorldFeatureLake(Block.blockDiamond.id).generate(decorateEvent.world, decorateEvent.random, decorateEvent.x + decorateEvent.random.nextInt(15), decorateEvent.random.nextInt(decorateEvent.world.getHeightBlocks()), decorateEvent.z + decorateEvent.random.nextInt(15));
 		}
 	}
 }
