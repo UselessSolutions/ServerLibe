@@ -46,6 +46,6 @@ public class NetServerHandlerMixinHandleInventoryClick {
 	}
 	@Unique
 	private void resyncInventory(){
-		GuiHelper.resyncInventory(playerEntity);
+		GuiHelper.syncInventory(playerEntity);
 	}
 }

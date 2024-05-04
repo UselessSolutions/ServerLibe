@@ -4,6 +4,10 @@
   "package": "org.useless.serverlibe.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+  ],
+  "client": [
+  ],
+  "server": [
     "accessors.ContainerChestAccessor",
     "accessors.EntityPlayerMPAccessor",
     "inventory.NetServerHandlerMixinHandleInventoryClick",
@@ -18,8 +22,6 @@
     "player.NetServerHandlerMixinItemUse",
     "server.MinecraftServerMixinHandleTick",
     "world.WorldServerMixinHandleTick"
-  ],
-  "client": [
   ],
   "injectors": {
     "defaultRequire": 1

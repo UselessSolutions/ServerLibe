@@ -23,9 +23,18 @@ public class ServerLibe implements ModInitializer {
     @Override
     public void onInitialize() {
 		if (FabricLoader.getInstance().getEnvironmentType() != EnvType.SERVER) return;
-		FabricLoader.getInstance().getEntrypoints("serverlibe", ServerLibeEntrypoint.class).forEach(ServerLibeEntrypoint::serverlibeEntry);
+		FabricLoader.getInstance().getEntrypoints("serverlibe", ServerLibeEntrypoint.class).forEach(ServerLibeEntrypoint::serverlibeInit);
         LOGGER.info("ServerLibe initialized.");
     }
+
+	/**
+	 * Registers all the {@link EventListener} annotated methods in the provided {@link Listener} into {@link ServerLibe}.
+	 *
+	 * @param listener Listener class to register
+	 *
+	 * @author Useless
+	 * @since beta-1
+	 */
 	public static void registerListener(@NotNull Listener listener){
 		Method[] methods = listener.getClass().getMethods();
 		for (Method m : methods){

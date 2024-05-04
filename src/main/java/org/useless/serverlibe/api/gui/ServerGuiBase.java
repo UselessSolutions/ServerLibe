@@ -49,12 +49,11 @@ public class ServerGuiBase extends ContainerChest {
 	}
 
 	public void onInventoryAction(@NotNull InventoryClickEvent clickEvent){
-		InventoryClickEvent.getEventContainer().runMethods(clickEvent);
 		if (clickEvent.args.length > 0){
 			int slotId = clickEvent.args[0];
 			Slot slot = getSlot(slotId);
 			if (slot instanceof ServerSlotBase){
-				((ServerSlotBase)slot).onInteract();
+				((ServerSlotBase)slot).onInteract(clickEvent);
 			}
 			if (!slot.allowItemInteraction()) {
 				clickEvent.setCancelled(true);
@@ -79,7 +78,7 @@ public class ServerGuiBase extends ContainerChest {
 	}
 	public void resyncGUI(EntityPlayer player){
 		if (player instanceof EntityPlayerMP){
-			GuiHelper.resyncInventory((EntityPlayerMP) player);
+			GuiHelper.syncInventory((EntityPlayerMP) player);
 		}
 	}
 

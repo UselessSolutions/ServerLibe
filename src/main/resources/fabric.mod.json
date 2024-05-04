@@ -9,12 +9,13 @@
     "Useless"
   ],
   "contact": {
-    "homepage": "",
-    "sources": ""
+    "homepage": "https://github.com/UselessSolutions/ServerLibe",
+    "sources": "https://github.com/UselessSolutions/ServerLibe",
+		"issues": "https://github.com/UselessSolutions/ServerLibe/issues"
   },
 
 	"icon": "icon.png",
-  "license": "MIT",
+  "license": "AGPL-3",
 
   "environment": "*",
   "entrypoints": {
