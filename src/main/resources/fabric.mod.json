@@ -14,7 +14,6 @@
 		"issues": "https://github.com/UselessSolutions/ServerLibe/issues"
   },
 
-	"icon": "icon.png",
   "license": "AGPL-3",
 
   "environment": "server",

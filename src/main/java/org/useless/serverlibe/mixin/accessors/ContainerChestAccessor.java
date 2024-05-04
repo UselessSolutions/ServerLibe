@@ -5,7 +5,7 @@ import net.minecraft.core.player.inventory.IInventory;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(ContainerChest.class)
+@Mixin(value = ContainerChest.class, remap = false)
 public interface ContainerChestAccessor {
 	@Accessor("field_20125_a")
 	IInventory getContainerInventory();
