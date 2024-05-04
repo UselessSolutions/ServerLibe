@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * To properly set up an {@link EventListener} the attached method must return void and its only parameter must be a class which extends {@link org.useless.serverlibe.api.event.Event Event}
  *
  * @author Useless
- * @since beta-1
+ * @since beta.1
  */
 @Documented
 @Target(ElementType.METHOD)
@@ -24,7 +24,7 @@ public @interface EventListener {
 	 * Defines when the method should be called, with methods marked {@code HIGHEST} run first and methods marked {@code LOWEST} run last.
 	 *
 	 * @author Useless
-	 * @since beta-1
+	 * @since beta.1
 	 */
 	@NotNull
 	Priority priority() default Priority.NORMAL;
@@ -36,7 +36,7 @@ public @interface EventListener {
 	 * if false then the method will always be called
 	 *
 	 * @author Useless
-	 * @since beta-1
+	 * @since beta.1
 	 */
 	boolean ignoreCancelled() default false;
 }

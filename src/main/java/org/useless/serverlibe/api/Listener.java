@@ -6,7 +6,7 @@ package org.useless.serverlibe.api;
  * Its purpose may be expanded in the future.
  *
  * @author Useless
- * @since beta-1
+ * @since beta.1
  */
 public interface Listener {
 }

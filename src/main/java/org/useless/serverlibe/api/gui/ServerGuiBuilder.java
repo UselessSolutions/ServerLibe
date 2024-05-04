@@ -15,7 +15,7 @@ import java.util.function.Function;
 /**
  *
  * @author Useless
- * @since beta-1
+ * @since beta.1
  */
 public final class ServerGuiBuilder {
 	@NotNull
@@ -36,7 +36,7 @@ public final class ServerGuiBuilder {
 	 * @param rows The number of rows for the GUI. (each row being 9 slots)
 	 * @return A reference to this object.
 	 *
-	 * @since beta-1
+	 * @since beta.1
 	 * @author Useless
 	 */
 	@NotNull
@@ -52,7 +52,7 @@ public final class ServerGuiBuilder {
 	 * @param defaultContainerSlot Provides a {@link ServerSlotBase} when called.
 	 * @return A reference to this object.
 	 *
-	 * @since beta-1
+	 * @since beta.1
 	 * @author Useless
 	 */
 	@NotNull
@@ -67,7 +67,7 @@ public final class ServerGuiBuilder {
 	 * @param defaultPlayerSlot Provides a {@link ServerSlotBase} when called.
 	 * @return A reference to this object.
 	 *
-	 * @since beta-1
+	 * @since beta.1
 	 * @author Useless
 	 */
 	@NotNull
@@ -85,7 +85,7 @@ public final class ServerGuiBuilder {
 	 * @param buttonFunction Provides a {@link ServerSlotBase} when called.
 	 * @return A reference to this object.
 	 *
-	 * @since beta-1
+	 * @since beta.1
 	 * @author Useless
 	 */
 	@NotNull
@@ -103,7 +103,7 @@ public final class ServerGuiBuilder {
 	 * @param buttonFunction Provides a {@link ServerSlotBase} when called.
 	 * @return A reference to this object.
 	 *
-	 * @since beta-1
+	 * @since beta.1
 	 * @author Useless
 	 */
 	@NotNull

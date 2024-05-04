@@ -10,7 +10,7 @@ public interface ServerLibeEntrypoint {
 	 * </p>
 	 *
 	 * @author Useless
-	 * @since beta-1
+	 * @since beta.1
 	 */
 	void serverlibeInit();
 }

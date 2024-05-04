@@ -15,7 +15,7 @@ public class GuiHelper {
 	 * @param player {@link net.minecraft.core.entity.player.EntityPlayer Player} to make open the GUI.
 	 * @param serverGui Custom {@link ServerGuiBase server gui} to make the player open.
 	 *
-	 * @since beta-1
+	 * @since beta.1
 	 * @author Useless
 	 */
 	public static void openCustomServerGui(EntityPlayerMP player, ServerGuiBase serverGui){
@@ -35,7 +35,7 @@ public class GuiHelper {
 	 *
 	 * @param player The player to re-sync the inventory of.
 	 *
-	 * @since beta-1
+	 * @since beta.1
 	 * @author Useless
 	 */
 	public static void syncInventory(EntityPlayerMP player){

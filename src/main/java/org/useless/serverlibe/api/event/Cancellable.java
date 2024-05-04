@@ -5,7 +5,7 @@ public interface Cancellable {
 	 * @return true if the Event has been cancelled
 	 *
 	 * @author Useless
-	 * @since beta-1
+	 * @since beta.1
 	 */
 	boolean isCancelled();
 
@@ -14,7 +14,7 @@ public interface Cancellable {
 	 * @param cancel value to set the cancel state
 	 *
 	 * @author Useless
-	 * @since beta-1
+	 * @since beta.1
 	 */
 	void setCancelled(boolean cancel);
 }

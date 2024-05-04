@@ -12,7 +12,7 @@ import java.util.Objects;
  * Simple slot that runs an action on client clicking.
  *
  * @author Useless
- * @since beta-1
+ * @since beta.1
  */
 public class ServerSlotButton extends ServerSlotDisplay{
 	@NotNull
@@ -27,7 +27,7 @@ public class ServerSlotButton extends ServerSlotDisplay{
 	 * @param action {@link Runnable} to call when clicked by client.
 	 *
 	 * @author Useless
-	 * @since beta-1
+	 * @since beta.1
 	 */
 	public ServerSlotButton(ItemStack icon, IInventory inventory, int id, @NotNull Runnable action) {
 		super(icon, inventory, id);

@@ -110,9 +110,16 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 jar {
+	exclude('org/useless/test/**')
 	from("LICENSE") {
 		rename { "${it}_${archivesBaseName}" }
 	}
+}
+sourcesJar{
+	exclude('org/useless/test/**')
+}
+javadocJar{
+	exclude('org/useless/test/**')
 }
 
 processResources {
