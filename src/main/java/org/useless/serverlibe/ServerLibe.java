@@ -33,7 +33,7 @@ public class ServerLibe implements ModInitializer {
 	 * @param listener Listener class to register
 	 *
 	 * @author Useless
-	 * @since beta-1
+	 * @since beta.1
 	 */
 	public static void registerListener(@NotNull Listener listener){
 		Method[] methods = listener.getClass().getMethods();

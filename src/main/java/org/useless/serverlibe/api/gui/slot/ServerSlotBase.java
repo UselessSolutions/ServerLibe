@@ -9,7 +9,7 @@ import org.useless.serverlibe.api.event.player.inventory.InventoryClickEvent;
  * New {@link org.useless.serverlibe.ServerLibe ServerLibe} specific methods are also to be defined here.
  *
  * @author Useless
- * @since beta-1
+ * @since beta.1
  */
 public class ServerSlotBase extends Slot {
 	/**
@@ -29,7 +29,7 @@ public class ServerSlotBase extends Slot {
 	 * @param clickEvent Click event from client.
 	 *
 	 * @author Useless
-	 * @since beta-1
+	 * @since beta.1
 	 */
 	public void onInteract(InventoryClickEvent clickEvent){
 

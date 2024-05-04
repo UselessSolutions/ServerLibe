@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
  * Simple slot that forbids client interaction.
  *
  * @author Useless
- * @since beta-1
+ * @since beta.1
  */
 public class ServerSlotDisplay extends ServerSlotBase{
 	public ServerSlotDisplay(IInventory inventory, int id){
@@ -21,7 +21,7 @@ public class ServerSlotDisplay extends ServerSlotBase{
 	 * @param id Index of stack array slot is attached to.
 	 *
 	 * @author Useless
-	 * @since beta-1
+	 * @since beta.1
 	 */
 	public ServerSlotDisplay(@Nullable ItemStack icon, IInventory inventory, int id) {
 		super(inventory, id);
@@ -43,7 +43,7 @@ public class ServerSlotDisplay extends ServerSlotBase{
 	 * @return True if stack is allowed, false if not allowed.
 	 *
 	 * @author Useless
-	 * @since beta-1
+	 * @since beta.1
 	 */
 	@Override
 	public boolean canPutStackInSlot(ItemStack itemstack) {

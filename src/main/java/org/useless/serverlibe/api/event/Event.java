@@ -11,7 +11,7 @@ package org.useless.serverlibe.api.event;
  * </b>
  *
  * @author Useless
- * @since beta-1
+ * @since beta.1
  */
 public abstract class Event {
 }

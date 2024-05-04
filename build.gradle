@@ -1,6 +1,7 @@
 plugins {
 	id 'babric-loom' version '1.4.+'
 	id 'java'
+	id 'maven-publish'
 }
 
 group = project.mod_group
@@ -110,9 +111,16 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 jar {
+	exclude('org/useless/test/**')
 	from("LICENSE") {
 		rename { "${it}_${archivesBaseName}" }
 	}
+}
+sourcesJar{
+	exclude('org/useless/test/**')
+}
+javadocJar{
+	exclude('org/useless/test/**')
 }
 
 processResources {
