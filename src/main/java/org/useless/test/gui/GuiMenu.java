@@ -21,20 +21,18 @@ public class GuiMenu extends ServerGuiBase {
 	public GuiMenu(@NotNull EntityPlayer player, String title) {
 		super(player, title, 1);
 		currentPlayer = Objects.requireNonNull(player);
-		ItemStack survivalIcon = Item.toolAxeStone.getDefaultStack();
-		survivalIcon.setCustomName("Survival Mode");
-		ItemStack creativeIcon = Block.bedrock.getDefaultStack();
-		creativeIcon.setCustomName("Creative Mode");
-		inventory.setInventorySlotContents(0, survivalIcon);
-		inventory.setInventorySlotContents(1, creativeIcon);
 	}
 	@Override
 	public ServerSlotBase getSlotForContainerInv(IInventory containerInventory, int id){
 		if (id == 0){
-			return new ServerSlotButton(containerInventory, id, () -> currentPlayer.setGamemode(Gamemode.survival));
+			ItemStack survivalIcon = Item.toolAxeStone.getDefaultStack();
+			survivalIcon.setCustomName("Survival Mode");
+			return new ServerSlotButton(survivalIcon, containerInventory, id, () -> currentPlayer.setGamemode(Gamemode.survival));
 		}
 		if (id == 1){
-			return new ServerSlotButton(containerInventory, id, () -> currentPlayer.setGamemode(Gamemode.creative));
+			ItemStack creativeIcon = Block.bedrock.getDefaultStack();
+			creativeIcon.setCustomName("Creative Mode");
+			return new ServerSlotButton(creativeIcon, containerInventory, id, () -> currentPlayer.setGamemode(Gamemode.creative));
 		}
 		return new ServerSlotDisplay(containerInventory, id);
 	}
