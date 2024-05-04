@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.useless.serverlibe.api.Listener;
 import org.useless.serverlibe.api.ServerLibeEntrypoint;
 import org.useless.serverlibe.api.annotations.EventListener;
-import org.useless.serverlibe.api.event.Event;
 import org.useless.serverlibe.internal.EventContainer;
 
 import java.lang.reflect.InvocationTargetException;
@@ -42,7 +41,7 @@ public class ServerLibe implements ModInitializer {
 				EventListener anno = m.getAnnotation(EventListener.class);
 				Type[] types = m.getGenericParameterTypes();
 				if (types.length != 1) throw new RuntimeException(String.format("Method '%s' in class '%s' has '%d' parameters, all event methods must have exactly 1 parameter!", m, listener.getClass().getName(), types.length));
-				Class<? extends Event> event = (Class<? extends Event>) types[0];
+				Class<?> event = (Class<?>) types[0];
                 try {
 					EventContainer eventContainer = (EventContainer) event.getMethod("getEventContainer", null).invoke(null);
 					eventContainer.addEvent(listener, m, anno);
