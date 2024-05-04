@@ -7,6 +7,7 @@ import net.minecraft.core.player.inventory.IInventory;
 import net.minecraft.core.player.inventory.InventoryBasic;
 import net.minecraft.core.player.inventory.slot.Slot;
 import net.minecraft.server.entity.player.EntityPlayerMP;
+import org.jetbrains.annotations.NotNull;
 import org.useless.serverlibe.api.event.player.inventory.InventoryClickEvent;
 import org.useless.serverlibe.api.gui.slot.ServerSlotBase;
 import org.useless.serverlibe.mixin.accessors.ContainerChestAccessor;
@@ -47,8 +48,7 @@ public class ServerGuiBase extends ContainerChest {
 		return new ServerSlotBase(playerInventory, id);
 	}
 
-	public void onInventoryAction(InventoryClickEvent clickEvent){
-		clickEvent.player.addChatMessage(String.format("[%s] click event", inventoryTitle));
+	public void onInventoryAction(@NotNull InventoryClickEvent clickEvent){
 		InventoryClickEvent.getEventContainer().runMethods(clickEvent);
 		if (clickEvent.args.length > 0){
 			int slotId = clickEvent.args[0];
@@ -67,7 +67,7 @@ public class ServerGuiBase extends ContainerChest {
 		Integer[] nums = targets.toArray(new Integer[0]);
 		boolean needResync = false;
 		for (int i : nums){
-			if (!getSlot(i).allowItemInteraction()){ // Make it so you can't target non interraction slots
+			if (!getSlot(i).canPutStackInSlot(slot.getStack())){ // Make it so you can't target non interaction slots
 				targets.remove((Integer) i);
 				needResync = true;
 			}

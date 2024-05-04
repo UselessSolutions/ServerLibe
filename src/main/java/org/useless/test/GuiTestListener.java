@@ -11,7 +11,7 @@ import org.useless.serverlibe.api.event.player.PlayerItemUseEvent;
 import org.useless.serverlibe.api.gui.GuiHelper;
 import org.useless.serverlibe.api.gui.ServerGuiBase;
 import org.useless.serverlibe.api.gui.slot.ServerSlotButton;
-import org.useless.test.gui.ServerGuiBuilder;
+import org.useless.serverlibe.api.gui.ServerGuiBuilder;
 
 public class GuiTestListener implements Listener {
 	@EventListener
