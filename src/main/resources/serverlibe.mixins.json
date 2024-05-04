@@ -4,9 +4,12 @@
   "package": "org.useless.serverlibe.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "accessors.ContainerChestAccessor",
+    "accessors.EntityPlayerMPAccessor",
     "inventory.NetServerHandlerMixinHandleInventoryClick",
     "inventory.NetServerHandlerMixinHandleInventoryCloseGUI",
     "inventory.NetServerHandlerMixinHandleInventoryOpenGUI",
+    "patches.EntityPlayerMPMixinFixSyncNBT",
     "player.NetServerHandlerMixinHandleChat",
     "player.NetServerHandlerMixinHandleDig",
     "player.NetServerHandlerMixinHandleEntityInteract",
