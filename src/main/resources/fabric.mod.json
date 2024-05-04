@@ -17,7 +17,7 @@
 	"icon": "icon.png",
   "license": "AGPL-3",
 
-  "environment": "*",
+  "environment": "server",
   "entrypoints": {
     "main": [
 			"org.useless.serverlibe.ServerLibe"
