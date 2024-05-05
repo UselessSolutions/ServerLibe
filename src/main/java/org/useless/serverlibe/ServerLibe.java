@@ -1,6 +1,5 @@
 package org.useless.serverlibe;
 
-import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +20,7 @@ public class ServerLibe implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     @Override
     public void onInitialize() {
-		if (FabricLoader.getInstance().getEnvironmentType() != EnvType.SERVER) return;
+//		if (FabricLoader.getInstance().getEnvironmentType() != EnvType.SERVER) return;
 		FabricLoader.getInstance().getEntrypoints("serverlibe", ServerLibeEntrypoint.class).forEach(ServerLibeEntrypoint::serverlibeInit);
         LOGGER.info("ServerLibe initialized.");
     }

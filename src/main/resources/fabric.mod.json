@@ -16,7 +16,7 @@
 
   "license": "AGPL-3",
 
-  "environment": "server",
+  "environment": "*",
   "entrypoints": {
     "main": [
 			"org.useless.serverlibe.ServerLibe"
