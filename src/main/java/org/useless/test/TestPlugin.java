@@ -39,6 +39,6 @@ public class TestPlugin implements ServerLibeEntrypoint {
 		System.out.printf("TestStack : %s\n", configuration.getAsClass("testItemStack", ItemStack.class).isStackEqual(testStack));
 		System.out.printf("TestStack Name: %s\n", configuration.getAsClass("testItemStack", ItemStack.class).getDisplayName());
 
-		throw new RuntimeException();
+//		throw new RuntimeException();
     }
 }
