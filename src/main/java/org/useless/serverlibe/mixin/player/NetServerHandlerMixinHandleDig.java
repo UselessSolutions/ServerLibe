@@ -47,19 +47,15 @@ public class NetServerHandlerMixinHandleDig {
 			at = @At
 				(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerPlayerController;hitBlock(IIILnet/minecraft/core/util/helper/Side;)V"
+					target = "Lnet/minecraft/server/world/ServerPlayerController;hitBlock(IIILnet/minecraft/core/util/helper/Side;DD)V"
 				)
 		)
 	public void serverlibe$onBlockHit
 		(
-			@NotNull final ServerPlayerController instance,
-			final int x,
-			final int y,
-			final int z,
-			@NotNull final Side side)
+			ServerPlayerController instance, int x, int y, int z, Side side, double xHit, double yHit)
 	{
 		final PlayerDigEvent digEvent = new PlayerDigEvent(playerEntity, playerEntity.world, x, y, z, side, PlayerDigEvent.HIT_BLOCK);
-		runEvents(digEvent, () -> instance.hitBlock(x, y, z, side));
+		runEvents(digEvent, () -> instance.hitBlock(x, y, z, side, xHit, yHit));
 	}
 	@Redirect
 		(
@@ -67,21 +63,18 @@ public class NetServerHandlerMixinHandleDig {
 			at = @At
 				(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerPlayerController;destroyBlock(III)Z"
+					target = "Lnet/minecraft/server/world/ServerPlayerController;destroyBlock(IIILnet/minecraft/core/util/helper/Side;)Z"
 				)
 
 		)
 	public boolean serverlibe$onBlockDestroy
 		(
-			@NotNull final ServerPlayerController instance,
-			final int x,
-			final int y,
-			final int z
+			ServerPlayerController instance, int x, int y, int z, Side side
 		)
 	{
 		AtomicBoolean blockBroken = new AtomicBoolean(false);
 		final PlayerDigEvent digEvent = new PlayerDigEvent(playerEntity, playerEntity.world, x, y, z, Side.NONE, PlayerDigEvent.DESTROY_BLOCK);
-		runEvents(digEvent, () -> blockBroken.set(blockBroken.get() | instance.destroyBlock(x, y, z)));
+		runEvents(digEvent, () -> blockBroken.set(blockBroken.get() | instance.destroyBlock(x, y, z, side)));
 
         return blockBroken.get();
     }

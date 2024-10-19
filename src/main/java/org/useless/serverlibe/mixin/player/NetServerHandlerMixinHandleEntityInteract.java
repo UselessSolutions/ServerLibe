@@ -24,13 +24,13 @@ public class NetServerHandlerMixinHandleEntityInteract {
 			at = @At
 				(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/WorldServer;func_6158_a(I)Lnet/minecraft/core/entity/Entity;",
+					target = "Lnet/minecraft/server/world/WorldServer;getEntityFromId(I)Lnet/minecraft/core/entity/Entity;",
 					shift = At.Shift.BEFORE
 				),
 			locals = LocalCapture.CAPTURE_FAILHARD,
 			cancellable = true)
 	public void serverlibe$EntityInteract(Packet7UseEntity packet, CallbackInfo ci, WorldServer worldserver){
-		Entity target = worldserver.func_6158_a(packet.targetEntity);
+		Entity target = worldserver.getEntityFromId(packet.targetEntity);
 		if (target == null) {
 			return;
 		}

@@ -10,6 +10,7 @@ import org.useless.serverlibe.api.ServerLibeEntrypoint;
 import org.useless.serverlibe.api.annotations.EventListener;
 import org.useless.serverlibe.internal.EventContainer;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -21,8 +22,15 @@ public class ServerLibe implements ModInitializer {
     @Override
     public void onInitialize() {
 //		if (FabricLoader.getInstance().getEnvironmentType() != EnvType.SERVER) return;
-		FabricLoader.getInstance().getEntrypoints("serverlibe", ServerLibeEntrypoint.class).forEach(ServerLibeEntrypoint::serverlibeInit);
-        LOGGER.info("ServerLibe initialized.");
+		for (ServerLibeEntrypoint serverLibeEntrypoint : FabricLoader.getInstance().getEntrypoints("serverlibe", ServerLibeEntrypoint.class)) {
+			try {
+				serverLibeEntrypoint.serverlibeInit();
+			} catch (IOException e) {
+				LOGGER.error("Failed to get EntryPoint");
+				continue;
+			}
+		}
+		LOGGER.info("ServerLibe initialized.");
     }
 
 	/**

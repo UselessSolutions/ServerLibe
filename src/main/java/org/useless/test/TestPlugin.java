@@ -10,10 +10,11 @@ import org.useless.serverlibe.api.ServerLibeEntrypoint;
 import org.useless.serverlibe.config.YamlConfiguration;
 
 import java.io.File;
+import java.io.IOException;
 
 public class TestPlugin implements ServerLibeEntrypoint {
 	@Override
-	public void serverlibeInit() {
+	public void serverlibeInit() throws IOException {
 		ServerLibe.registerListener(new TestFeatureListener());
 		ServerLibe.registerListener(new DebugInfoListener());
 		ServerLibe.registerListener(new GuiTestListener());
