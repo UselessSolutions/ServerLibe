@@ -50,7 +50,7 @@ public class ServerLibe implements ModInitializer {
 				if (types.length != 1) throw new RuntimeException(String.format("Method '%s' in class '%s' has '%d' parameters, all event methods must have exactly 1 parameter!", m, listener.getClass().getName(), types.length));
 				Class<?> event = (Class<?>) types[0];
                 try {
-					EventContainer eventContainer = (EventContainer) event.getMethod("getEventContainer", (Class<?>) null).invoke(null);
+					EventContainer eventContainer = (EventContainer) event.getMethod("getEventContainer", (Class<?>[]) null).invoke(null);
 					eventContainer.addEvent(listener, m, anno);
                 } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
                     throw new RuntimeException(String.format("Type: %s, Error: %s", event, e));
