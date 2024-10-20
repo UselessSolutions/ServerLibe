@@ -121,7 +121,7 @@ public final class ServerGuiBuilder {
 	 */
 	@NotNull
 	public ServerGuiBase build(@NotNull EntityPlayer player, @NotNull String title){
-		final int rows = (int) Math.ceil(highestContainerID /9f);
+		final int rows = (int) Math.ceil(highestContainerID +1 /9f);
         return new ServerGuiBase(player, title, rows){
 			public ServerSlotBase getSlotForContainerInv(IInventory containerInventory, int id){
 				if (containerSlotMap.get(id) != null){
