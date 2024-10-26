@@ -17,7 +17,7 @@ public class ServerPacketHandlerMixinHandleChat {
 
 	@Redirect
 		(
-			method = "handleChat(Lnet/minecraft/core/net/packet/Packet3Chat;)V",
+			method = "Lnet/minecraft/server/net/handler/ServerPacketHandler;handleChat(Lnet/minecraft/core/net/packet/ChatPacket;)V",
 			at = @At
 				(
 					value = "INVOKE",

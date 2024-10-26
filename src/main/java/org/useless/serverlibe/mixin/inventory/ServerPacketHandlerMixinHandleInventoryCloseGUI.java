@@ -1,6 +1,6 @@
 package org.useless.serverlibe.mixin.inventory;
 
-import net.minecraft.core.net.packet.Packet101CloseWindow;
+import net.minecraft.core.net.packet.ContainerClosePacket;
 import net.minecraft.server.entity.player.ServerPlayer;
 import net.minecraft.server.net.handler.ServerPacketHandler;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,7 +16,7 @@ public class ServerPacketHandlerMixinHandleInventoryCloseGUI {
 	private ServerPlayer playerEntity;
 
 	@Inject(method = "handleCloseWindow", at = @At("TAIL"))
-	private void serverlibe$onGUIClose(Packet101CloseWindow packet, CallbackInfo ci){
+	private void serverlibe$onGUIClose(ContainerClosePacket packet, CallbackInfo ci){
 		InventoryCloseEvent.getEventContainer().runMethods(new InventoryCloseEvent(playerEntity, packet.windowId));
 	}
 }

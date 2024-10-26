@@ -1,7 +1,7 @@
 package org.useless.serverlibe.mixin.player;
 
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.net.packet.Packet7UseEntity;
+import net.minecraft.core.net.packet.InteractPacket;
 import net.minecraft.server.entity.player.ServerPlayer;
 import net.minecraft.server.net.handler.ServerPacketHandler;
 import net.minecraft.server.world.WorldServer;
@@ -29,12 +29,12 @@ public class ServerPacketHandlerMixinHandleEntityInteract {
 				),
 			locals = LocalCapture.CAPTURE_FAILHARD,
 			cancellable = true)
-	public void serverlibe$EntityInteract(Packet7UseEntity packet, CallbackInfo ci, WorldServer worldserver){
-		Entity target = worldserver.getEntityFromId(packet.targetEntity);
+	public void serverlibe$EntityInteract(InteractPacket packet, CallbackInfo ci, WorldServer worldserver){
+		Entity target = worldserver.getEntityFromId(packet.targetEntityID);
 		if (target == null) {
 			return;
 		}
-		PlayerEntityInteractEvent interactEvent = PlayerEntityInteractEvent.getEventContainer().runMethods(new PlayerEntityInteractEvent(playerEntity, worldserver, playerEntity.getHeldItem(), target, packet.isLeftClick));
+		PlayerEntityInteractEvent interactEvent = PlayerEntityInteractEvent.getEventContainer().runMethods(new PlayerEntityInteractEvent(playerEntity, worldserver, playerEntity.getHeldItem(), target, packet.action));
 
 		if (interactEvent.isCancelled()) ci.cancel();
 	}

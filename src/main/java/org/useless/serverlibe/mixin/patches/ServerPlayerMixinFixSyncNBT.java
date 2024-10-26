@@ -1,8 +1,8 @@
 package org.useless.serverlibe.mixin.patches;
 
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.net.packet.Packet103SetSlot;
-import net.minecraft.core.player.inventory.Container;
+import net.minecraft.core.net.packet.ContainerSetSlotPacket;
+import net.minecraft.core.player.inventory.menu.AbstractContainerMenu;
 import net.minecraft.server.entity.player.ServerPlayer;
 import net.minecraft.server.net.handler.ServerPacketHandler;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,11 +16,11 @@ import java.util.List;
 @Mixin(value = ServerPlayer.class, remap = false)
 public class ServerPlayerMixinFixSyncNBT {
 	@Shadow
-	public ServerPacketHandler playerServerPacketHandler;
+	public ServerPacketHandler playerNetServerHandler;
 
 	@Inject
 		(
-			method = "updateCraftingInventory(Lnet/minecraft/core/player/inventory/Container;Ljava/util/List;)V",
+			method = "Lnet/minecraft/server/entity/player/ServerPlayer;updateCraftingInventory(Lnet/minecraft/core/player/inventory/menu/AbstractContainerMenu;Ljava/util/List;)V",
 			at = @At
 				(
 					value = "INVOKE",
@@ -28,11 +28,11 @@ public class ServerPlayerMixinFixSyncNBT {
 					shift = At.Shift.AFTER
 				)
 		)
-	public void serverlibe$syncNBTData(Container container, List<ItemStack> list, CallbackInfo ci){
+	public void serverlibe$syncNBTData(AbstractContainerMenu container, List<ItemStack> list, CallbackInfo ci){
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i) == null) continue;
 			if (!list.get(i).getData().getValues().isEmpty()){
-				playerServerPacketHandler.sendPacket(new Packet103SetSlot(container.windowId, i, list.get(i)));
+				playerNetServerHandler.sendPacket(new ContainerSetSlotPacket(container.containerId, i, list.get(i)));
 			}
 		}
 	}

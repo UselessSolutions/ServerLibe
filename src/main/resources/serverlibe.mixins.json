@@ -5,7 +5,16 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "accessors.ServerPlayerAccessor",
-    "inventory.ServerPacketHandlerMixinHandleInventoryClick"
+    "inventory.ServerPacketHandlerMixinHandleInventoryClick",
+    "inventory.ServerPacketHandlerMixinHandleInventoryCloseGUI",
+    "inventory.ServerPacketHandlerMixinHandleInventoryOpenGUI",
+    "patches.ServerPlayerMixinFixSyncNBT",
+    "player.ServerPacketHandlerMixinHandleChat",
+    "player.ServerPacketHandlerMixinHandleDig",
+    "player.ServerPacketHandlerMixinHandleEntityInteract",
+    "player.ServerPacketHandlerMixinHandleMovement",
+    "player.ServerPacketHandlerMixinHandlePlace",
+    "player.ServerPacketHandlerMixinItemUse"
   ],
   "client": [
   ],

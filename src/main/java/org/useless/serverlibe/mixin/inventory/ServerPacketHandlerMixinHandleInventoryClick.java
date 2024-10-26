@@ -1,8 +1,6 @@
 package org.useless.serverlibe.mixin.inventory;
 
 import net.minecraft.core.net.packet.ContainerClickPacket;
-import net.minecraft.core.net.packet.Packet102WindowClick;
-import net.minecraft.core.player.inventory.ContainerChest;
 import net.minecraft.server.entity.player.ServerPlayer;
 import net.minecraft.server.net.handler.ServerPacketHandler;
 import org.spongepowered.asm.mixin.Mixin;

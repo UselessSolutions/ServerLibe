@@ -18,7 +18,7 @@ public class ServerPacketHandlerMixinHandlePlace {
 
     @Redirect
 		(
-		method = "handlePlace(Lnet/minecraft/core/net/packet/Packet15Place;)V",
+		method = "Lnet/minecraft/server/net/handler/ServerPacketHandler;handlePlace(Lnet/minecraft/core/net/packet/UseItemPacket;)V",
 		at = @At
 			(
 			value = "INVOKE",

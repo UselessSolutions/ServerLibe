@@ -1,7 +1,7 @@
 package org.useless.serverlibe.mixin.inventory;
 
+import net.minecraft.core.net.packet.ContainerOpenPacket;
 import net.minecraft.core.net.packet.Packet;
-import net.minecraft.core.net.packet.Packet100OpenWindow;
 import net.minecraft.server.entity.player.ServerPlayer;
 import net.minecraft.server.net.handler.ServerPacketHandler;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,8 +18,8 @@ public class ServerPacketHandlerMixinHandleInventoryOpenGUI {
 
 	@Inject(method = "sendPacket(Lnet/minecraft/core/net/packet/Packet;)V", at = @At("HEAD"), cancellable = true)
 	private void serveribe$onGUIOpen(Packet packet, CallbackInfo ci){
-		if (packet instanceof Packet100OpenWindow){
-			Packet100OpenWindow openWindow = (Packet100OpenWindow)packet;
+		if (packet instanceof ContainerOpenPacket){
+			ContainerOpenPacket openWindow = (ContainerOpenPacket)packet;
 			InventoryServerOpenEvent openEvent = InventoryServerOpenEvent.getEventContainer().runMethods(new InventoryServerOpenEvent
 				(
 					playerEntity,
