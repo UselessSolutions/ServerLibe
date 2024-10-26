@@ -2,7 +2,7 @@ package org.useless.serverlibe.api.gui.slot;
 
 import net.minecraft.core.InventoryAction;
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.player.inventory.IInventory;
+import net.minecraft.core.player.inventory.container.Inventory;
 import org.jetbrains.annotations.NotNull;
 import org.useless.serverlibe.api.event.player.inventory.InventoryClickEvent;
 
@@ -29,7 +29,7 @@ public class ServerSlotButton extends ServerSlotDisplay{
 	 * @author Useless
 	 * @since beta.1
 	 */
-	public ServerSlotButton(ItemStack icon, IInventory inventory, int id, @NotNull Runnable action) {
+	public ServerSlotButton(ItemStack icon, Inventory inventory, int id, @NotNull Runnable action) {
 		super(icon, inventory, id);
 		this.action = Objects.requireNonNull(action);
 	}

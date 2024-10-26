@@ -31,7 +31,7 @@ public class TestFeatureListener implements Listener {
 		final ServerPlayer playerMP = (ServerPlayer)movementEvent.player;
 		final boolean movingQuick = movementEvent.distanceMoved > 0.7;
 		final String particleKey = movingQuick ? "blueflame" : "flame";
-		playerMP.playerNetServerHandler.sendPacket(new Packet63SpawnParticleEffect(particleKey, playerMP.x, playerMP.y, playerMP.z, 0, 0, 0, 0));
+		playerMP.playerServerPacketHandler.sendPacket(new Packet63SpawnParticleEffect(particleKey, playerMP.x, playerMP.y, playerMP.z, 0, 0, 0, 0));
 	}
 	@EventListener(priority = Priority.HIGH)
 	public void disableBreak(PlayerDigEvent digEvent){
@@ -42,7 +42,7 @@ public class TestFeatureListener implements Listener {
 	@EventListener(priority = Priority.LOW, ignoreCancelled = true)
 	public void blockBreakEffect(PlayerDigEvent digEvent){
 		final ServerPlayer playerMP = (ServerPlayer)digEvent.player;
-		playerMP.playerNetServerHandler.sendPacket(new Packet63SpawnParticleEffect
+		playerMP.playerServerPacketHandler.sendPacket(new Packet63SpawnParticleEffect
 			(
 				"explode",
 				digEvent.x + 0.5, digEvent.y + 0.5, digEvent.z + 0.5,

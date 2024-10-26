@@ -2,7 +2,7 @@ package org.useless.serverlibe.mixin.player;
 
 import net.minecraft.server.entity.player.ServerPlayer;
 import net.minecraft.server.net.PlayerList;
-import net.minecraft.server.net.handler.NetServerHandler;
+import net.minecraft.server.net.handler.ServerPacketHandler;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.useless.serverlibe.api.event.player.PlayerChatEvent;
 
-@Mixin(value = NetServerHandler.class, remap = false)
-public class NetServerHandlerMixinHandleChat {
+@Mixin(value = ServerPacketHandler.class, remap = false)
+public class ServerPacketHandlerMixinHandleChat {
 	@Shadow
 	private ServerPlayer playerEntity;
 

@@ -1,7 +1,7 @@
 package org.useless.serverlibe.api.gui.slot;
 
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.player.inventory.IInventory;
+import net.minecraft.core.player.inventory.container.Inventory;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
  * @since beta.1
  */
 public class ServerSlotDisplay extends ServerSlotBase{
-	public ServerSlotDisplay(IInventory inventory, int id){
+	public ServerSlotDisplay(Inventory inventory, int id){
 		this(null, inventory, id);
 	}
 
@@ -23,9 +23,9 @@ public class ServerSlotDisplay extends ServerSlotBase{
 	 * @author Useless
 	 * @since beta.1
 	 */
-	public ServerSlotDisplay(@Nullable ItemStack icon, IInventory inventory, int id) {
+	public ServerSlotDisplay(@Nullable ItemStack icon, Inventory inventory, int id) {
 		super(inventory, id);
-		inventory.setInventorySlotContents(id, icon);
+		inventory.setItem(id, icon);
 	}
 
 	/**

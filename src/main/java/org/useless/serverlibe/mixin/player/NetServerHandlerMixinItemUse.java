@@ -3,15 +3,15 @@ package org.useless.serverlibe.mixin.player;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
-import net.minecraft.server.net.handler.NetServerHandler;
+import net.minecraft.server.net.handler.ServerPacketHandler;
 import net.minecraft.server.world.ServerPlayerController;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.useless.serverlibe.api.event.player.PlayerItemUseEvent;
 
-@Mixin(value = NetServerHandler.class, remap = false)
-public class NetServerHandlerMixinItemUse {
+@Mixin(value = ServerPacketHandler.class, remap = false)
+public class ServerPacketHandlerMixinItemUse {
 	@Redirect
 		(
 			method = "handlePlace",

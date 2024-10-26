@@ -3,7 +3,7 @@ package org.useless.serverlibe.api.gui;
 import net.minecraft.core.InventoryAction;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.ContainerChest;
-import net.minecraft.core.player.inventory.IInventory;
+import net.minecraft.core.player.inventory.Inventory;
 import net.minecraft.core.player.inventory.InventoryBasic;
 import net.minecraft.core.player.inventory.container.Inventory;
 import net.minecraft.core.player.inventory.slot.Slot;
@@ -43,10 +43,10 @@ public class ServerGuiBase extends Container {
 			this.addSlot(getSlotForPlayerInv(player.inventory, col));
 		}
 	}
-	public ServerSlotBase getSlotForContainerInv(IInventory containerInventory, int id){
+	public ServerSlotBase getSlotForContainerInv(Inventory containerInventory, int id){
 		return new ServerSlotBase(containerInventory, id);
 	}
-	public ServerSlotBase getSlotForPlayerInv(IInventory playerInventory, int id){
+	public ServerSlotBase getSlotForPlayerInv(Inventory playerInventory, int id){
 		return new ServerSlotBase(playerInventory, id);
 	}
 
