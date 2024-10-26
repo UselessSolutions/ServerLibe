@@ -12,7 +12,7 @@ import org.useless.serverlibe.config.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 
-public class TestPlugin implements ServerLibeEntrypoint {
+public class tasdaas implements ServerLibeEntrypoint {
 	@Override
 	public void serverlibeInit() throws IOException {
 		ServerLibe.registerListener(new TestFeatureListener());
