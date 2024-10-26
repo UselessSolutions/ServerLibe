@@ -1,6 +1,6 @@
 package org.useless.serverlibe.mixin.player;
 
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
@@ -22,13 +22,13 @@ public class NetServerHandlerMixinHandlePlace {
 		at = @At
 			(
 			value = "INVOKE",
-			target = "Lnet/minecraft/server/world/ServerPlayerController;activateBlockOrUseItem(Lnet/minecraft/core/entity/player/EntityPlayer;Lnet/minecraft/core/world/World;Lnet/minecraft/core/item/ItemStack;IIILnet/minecraft/core/util/helper/Side;DD)Z"
+			target = "Lnet/minecraft/server/world/ServerPlayerController;activateBlockOrUseItem(Lnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/world/World;Lnet/minecraft/core/item/ItemStack;IIILnet/minecraft/core/util/helper/Side;DD)Z"
 			)
 		)
 	public boolean serverlibe$onBlockPlaced
 		(
 		@NotNull final ServerPlayerController controller,
-		@NotNull final EntityPlayer playerEntity,
+		@NotNull final Player playerEntity,
 		@NotNull final World world,
 		@Nullable final ItemStack itemstack,
 		final int x,

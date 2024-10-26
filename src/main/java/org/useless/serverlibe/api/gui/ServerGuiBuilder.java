@@ -1,6 +1,6 @@
 package org.useless.serverlibe.api.gui;
 
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.IInventory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -115,12 +115,12 @@ public final class ServerGuiBuilder {
 	/**
 	 * Creates a new, preconfigured, {@link ServerGuiBase} from the provided build instructions.
 	 *
-	 * @param player {@link EntityPlayer} to show GUI to.
+	 * @param player {@link Player} to show GUI to.
 	 * @param title Title shown to the client at the top of the GUI.
 	 * @return Built {@link ServerGuiBase} from the builder's configuration.
 	 */
 	@NotNull
-	public ServerGuiBase build(@NotNull EntityPlayer player, @NotNull String title){
+	public ServerGuiBase build(@NotNull Player player, @NotNull String title){
 		final int rows = (int) Math.ceil(highestContainerID +1 /9f);
         return new ServerGuiBase(player, title, rows){
 			public ServerSlotBase getSlotForContainerInv(IInventory containerInventory, int id){

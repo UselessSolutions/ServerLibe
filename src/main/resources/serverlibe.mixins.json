@@ -4,6 +4,7 @@
   "package": "org.useless.serverlibe.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "accessors.ServerPlayerAccessor"
   ],
   "client": [
   ],

@@ -1,7 +1,7 @@
 package org.useless.serverlibe.api.event.player;
 
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +24,7 @@ public class PlayerEntityInteractEvent extends PlayerEvent implements Cancellabl
 
     public PlayerEntityInteractEvent
 		(
-			@NotNull final EntityPlayer player,
+			@NotNull final Player player,
 			@NotNull final World world,
 			@Nullable final ItemStack itemstack,
 			@NotNull final Entity targetEntity,

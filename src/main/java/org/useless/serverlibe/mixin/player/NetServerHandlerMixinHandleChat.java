@@ -1,6 +1,6 @@
 package org.useless.serverlibe.mixin.player;
 
-import net.minecraft.server.entity.player.EntityPlayerMP;
+import net.minecraft.server.entity.player.ServerPlayer;
 import net.minecraft.server.net.PlayerList;
 import net.minecraft.server.net.handler.NetServerHandler;
 import org.jetbrains.annotations.NotNull;
@@ -13,7 +13,7 @@ import org.useless.serverlibe.api.event.player.PlayerChatEvent;
 @Mixin(value = NetServerHandler.class, remap = false)
 public class NetServerHandlerMixinHandleChat {
 	@Shadow
-	private EntityPlayerMP playerEntity;
+	private ServerPlayer playerEntity;
 
 	@Redirect
 		(

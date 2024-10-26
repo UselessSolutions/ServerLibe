@@ -1,25 +1,27 @@
 package org.useless.serverlibe.api.gui;
 
 import net.minecraft.core.InventoryAction;
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.ContainerChest;
 import net.minecraft.core.player.inventory.IInventory;
 import net.minecraft.core.player.inventory.InventoryBasic;
+import net.minecraft.core.player.inventory.container.Inventory;
 import net.minecraft.core.player.inventory.slot.Slot;
-import net.minecraft.server.entity.player.EntityPlayerMP;
+import net.minecraft.server.entity.player.ServerPlayer;
 import org.jetbrains.annotations.NotNull;
 import org.useless.serverlibe.api.event.player.inventory.InventoryClickEvent;
 import org.useless.serverlibe.api.gui.slot.ServerSlotBase;
 import org.useless.serverlibe.mixin.accessors.ContainerChestAccessor;
 
+import java.awt.*;
 import java.util.List;
 
-public class ServerGuiBase extends ContainerChest {
+public class ServerGuiBase extends Container {
 	public final String inventoryTitle;
 	public final int slotsCount;
-	public final IInventory inventory;
+	public final Inventory inventory;
 
-	public ServerGuiBase(EntityPlayer player, String inventoryTitle, int rowCount) {
+	public ServerGuiBase(Player player, String inventoryTitle, int rowCount) {
 		super(player.inventory, new InventoryBasic(inventoryTitle, rowCount * 9));
 		this.inventory = ((ContainerChestAccessor)this).getContainerInventory();
 		this.inventoryTitle = inventoryTitle;
@@ -61,7 +63,7 @@ public class ServerGuiBase extends ContainerChest {
 		}
 	}
 	@Override
-	public List<Integer> getTargetSlots(InventoryAction action, Slot slot, int target, EntityPlayer player) {
+	public List<Integer> getTargetSlots(InventoryAction action, Slot slot, int target, Player player) {
 		List<Integer> targets = super.getTargetSlots(action, slot, target, player);
 		Integer[] nums = targets.toArray(new Integer[0]);
 		boolean needResync = false;
@@ -76,9 +78,9 @@ public class ServerGuiBase extends ContainerChest {
 		}
 		return targets;
 	}
-	public void resyncGUI(EntityPlayer player){
-		if (player instanceof EntityPlayerMP){
-			GuiHelper.syncInventory((EntityPlayerMP) player);
+	public void resyncGUI(Player player){
+		if (player instanceof ServerPlayer){
+			GuiHelper.syncInventory((ServerPlayer) player);
 		}
 	}
 

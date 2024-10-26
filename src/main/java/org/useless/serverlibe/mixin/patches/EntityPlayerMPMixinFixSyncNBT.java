@@ -3,7 +3,7 @@ package org.useless.serverlibe.mixin.patches;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.Packet103SetSlot;
 import net.minecraft.core.player.inventory.Container;
-import net.minecraft.server.entity.player.EntityPlayerMP;
+import net.minecraft.server.entity.player.ServerPlayer;
 import net.minecraft.server.net.handler.NetServerHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-@Mixin(value = EntityPlayerMP.class, remap = false)
-public class EntityPlayerMPMixinFixSyncNBT {
+@Mixin(value = ServerPlayer.class, remap = false)
+public class ServerPlayerMixinFixSyncNBT {
 	@Shadow
 	public NetServerHandler playerNetServerHandler;
 

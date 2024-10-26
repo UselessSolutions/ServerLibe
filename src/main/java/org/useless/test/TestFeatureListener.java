@@ -11,7 +11,7 @@ import net.minecraft.core.net.packet.Packet63SpawnParticleEffect;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.Vec3d;
 import net.minecraft.core.world.generate.feature.WorldFeatureLake;
-import net.minecraft.server.entity.player.EntityPlayerMP;
+import net.minecraft.server.entity.player.ServerPlayer;
 import org.useless.serverlibe.api.Listener;
 import org.useless.serverlibe.api.annotations.EventListener;
 import org.useless.serverlibe.api.enums.Priority;
@@ -28,7 +28,7 @@ public class TestFeatureListener implements Listener {
 	@EventListener
 	public void playerTrail(PlayerMovementEvent movementEvent){
 		if (movementEvent.distanceMoved < 0.05) return;
-		final EntityPlayerMP playerMP = (EntityPlayerMP)movementEvent.player;
+		final ServerPlayer playerMP = (ServerPlayer)movementEvent.player;
 		final boolean movingQuick = movementEvent.distanceMoved > 0.7;
 		final String particleKey = movingQuick ? "blueflame" : "flame";
 		playerMP.playerNetServerHandler.sendPacket(new Packet63SpawnParticleEffect(particleKey, playerMP.x, playerMP.y, playerMP.z, 0, 0, 0, 0));
@@ -41,7 +41,7 @@ public class TestFeatureListener implements Listener {
 	}
 	@EventListener(priority = Priority.LOW, ignoreCancelled = true)
 	public void blockBreakEffect(PlayerDigEvent digEvent){
-		final EntityPlayerMP playerMP = (EntityPlayerMP)digEvent.player;
+		final ServerPlayer playerMP = (ServerPlayer)digEvent.player;
 		playerMP.playerNetServerHandler.sendPacket(new Packet63SpawnParticleEffect
 			(
 				"explode",

@@ -1,6 +1,6 @@
 package org.useless.serverlibe.api.event.player;
 
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.useless.serverlibe.api.event.Cancellable;
@@ -24,7 +24,7 @@ public class PlayerMovementEvent extends PlayerEvent implements Cancellable {
 
     public PlayerMovementEvent
 	(
-		@NotNull final EntityPlayer player,
+		@NotNull final Player player,
 		@NotNull final World world,
 		final double xPos,
 		final double yPos,

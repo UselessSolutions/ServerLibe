@@ -1,6 +1,6 @@
 package org.useless.serverlibe.api.event.player;
 
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -23,7 +23,7 @@ public class PlayerDigEvent extends PlayerEvent implements Cancellable {
 	public final int status;
 	public PlayerDigEvent
 		(
-			@NotNull final EntityPlayer player,
+			@NotNull final Player player,
 			@NotNull final World world,
 			final int x,
 			final int y,

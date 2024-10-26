@@ -1,6 +1,6 @@
 package org.useless.serverlibe.mixin.player;
 
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import net.minecraft.server.net.handler.NetServerHandler;
@@ -18,10 +18,10 @@ public class NetServerHandlerMixinItemUse {
 			at = @At
 				(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerPlayerController;func_6154_a(Lnet/minecraft/core/entity/player/EntityPlayer;Lnet/minecraft/core/world/World;Lnet/minecraft/core/item/ItemStack;)Z"
+					target = "Lnet/minecraft/server/world/ServerPlayerController;func_6154_a(Lnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/world/World;Lnet/minecraft/core/item/ItemStack;)Z"
 				)
 		)
-	public boolean serverlibe$onItemRightClick(ServerPlayerController instance, EntityPlayer entityplayer, World world, ItemStack itemstack){
+	public boolean serverlibe$onItemRightClick(ServerPlayerController instance, Player entityplayer, World world, ItemStack itemstack){
 		PlayerItemUseEvent itemUseEvent = PlayerItemUseEvent.getEventContainer().runMethods(new PlayerItemUseEvent(entityplayer, world, itemstack));
 
 		final boolean returnVal;

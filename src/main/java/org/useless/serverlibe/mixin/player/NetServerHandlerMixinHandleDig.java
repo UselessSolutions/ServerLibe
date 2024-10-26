@@ -2,7 +2,7 @@ package org.useless.serverlibe.mixin.player;
 
 import net.minecraft.core.net.packet.Packet53BlockChange;
 import net.minecraft.core.util.helper.Side;
-import net.minecraft.server.entity.player.EntityPlayerMP;
+import net.minecraft.server.entity.player.ServerPlayer;
 import net.minecraft.server.net.handler.NetServerHandler;
 import net.minecraft.server.world.ServerPlayerController;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @Mixin(value = NetServerHandler.class, remap = false)
 public class NetServerHandlerMixinHandleDig {
 	@Shadow
-	private EntityPlayerMP playerEntity;
+	private ServerPlayer playerEntity;
 
 	@Redirect
 		(

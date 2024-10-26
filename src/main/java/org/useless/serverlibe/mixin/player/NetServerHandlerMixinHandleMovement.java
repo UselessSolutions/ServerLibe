@@ -1,7 +1,7 @@
 package org.useless.serverlibe.mixin.player;
 
 import net.minecraft.core.net.packet.Packet10Flying;
-import net.minecraft.server.entity.player.EntityPlayerMP;
+import net.minecraft.server.entity.player.ServerPlayer;
 import net.minecraft.server.net.handler.NetServerHandler;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,7 +14,7 @@ import org.useless.serverlibe.api.event.player.PlayerMovementEvent;
 @Mixin(value = NetServerHandler.class, remap = false)
 public class NetServerHandlerMixinHandleMovement {
 	@Shadow
-	private EntityPlayerMP playerEntity;
+	private ServerPlayer playerEntity;
 
     @Shadow
 	private double lastPosX;

@@ -2,7 +2,7 @@ package org.useless.serverlibe.mixin.player;
 
 import net.minecraft.core.entity.Entity;
 import net.minecraft.core.net.packet.Packet7UseEntity;
-import net.minecraft.server.entity.player.EntityPlayerMP;
+import net.minecraft.server.entity.player.ServerPlayer;
 import net.minecraft.server.net.handler.NetServerHandler;
 import net.minecraft.server.world.WorldServer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,7 +16,7 @@ import org.useless.serverlibe.api.event.player.PlayerEntityInteractEvent;
 @Mixin(value = NetServerHandler.class, remap = false)
 public class NetServerHandlerMixinHandleEntityInteract {
 	@Shadow
-	private EntityPlayerMP playerEntity;
+	private ServerPlayer playerEntity;
 
 	@Inject
 		(
