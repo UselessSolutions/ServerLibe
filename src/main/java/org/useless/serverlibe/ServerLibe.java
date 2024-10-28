@@ -9,6 +9,9 @@ import org.useless.serverlibe.api.Listener;
 import org.useless.serverlibe.api.ServerLibeEntrypoint;
 import org.useless.serverlibe.api.annotations.EventListener;
 import org.useless.serverlibe.internal.EventContainer;
+import org.useless.test.DebugInfoListener;
+import org.useless.test.GuiTestListener;
+import org.useless.test.TestFeatureListener;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -31,6 +34,9 @@ public class ServerLibe implements ModInitializer {
 			}
 		}
 		LOGGER.info("ServerLibe initialized.");
+		registerListener(new DebugInfoListener());
+		registerListener(new GuiTestListener());
+		registerListener(new TestFeatureListener());
     }
 
 	/**

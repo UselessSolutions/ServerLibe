@@ -23,8 +23,8 @@ public class GuiHelper {
 		accessor.serverlibe$getNextWindowId();
 		player.playerNetServerHandler.sendPacket(new ContainerOpenPacket(accessor.serverlibe$getCurrentWindowId(), 0, serverGui.inventoryTitle, serverGui.slotsCount));
 		player.craftingInventory = serverGui;
-		player.craftingInventory.windowId = accessor.serverlibe$getCurrentWindowId();
-		player.craftingInventory.onContainerInit(player);
+		player.craftingInventory.containerId = accessor.serverlibe$getCurrentWindowId();
+		player.craftingInventory.addSlotListener(player);
 	}
 
 	/**

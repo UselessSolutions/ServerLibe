@@ -2,6 +2,7 @@ package org.useless.serverlibe.mixin.patches;
 
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.ContainerSetSlotPacket;
+import net.minecraft.core.player.inventory.container.Container;
 import net.minecraft.core.player.inventory.menu.AbstractContainerMenu;
 import net.minecraft.server.entity.player.ServerPlayer;
 import net.minecraft.server.net.handler.ServerPacketHandler;

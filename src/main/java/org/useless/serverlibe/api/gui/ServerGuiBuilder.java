@@ -1,7 +1,7 @@
 package org.useless.serverlibe.api.gui;
 
 import net.minecraft.core.entity.player.Player;
-import net.minecraft.core.player.inventory.container.Inventory;
+import net.minecraft.core.player.inventory.container.Container;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.useless.serverlibe.api.gui.slot.ServerSlotBase;
@@ -19,13 +19,13 @@ import java.util.function.Function;
  */
 public final class ServerGuiBuilder {
 	@NotNull
-	private final Map<@NotNull Integer, Function<@NotNull Inventory, @NotNull ServerSlotBase>> playerSlotMap = new HashMap<>();
+	private final Map<@NotNull Integer, Function<@NotNull Container, @NotNull ServerSlotBase>> playerSlotMap = new HashMap<>();
 	@NotNull
-	private final Map<@NotNull Integer, Function<@NotNull Inventory, @NotNull ServerSlotBase>> containerSlotMap = new HashMap<>();
+	private final Map<@NotNull Integer, Function<@NotNull Container, @NotNull ServerSlotBase>> containerSlotMap = new HashMap<>();
 	@Nullable
-	private BiFunction<@NotNull Inventory, @NotNull Integer, @NotNull ServerSlotBase> defaultPlayerSlot = null;
+	private BiFunction<@NotNull Container, @NotNull Integer, @NotNull ServerSlotBase> defaultPlayerSlot = null;
 	@Nullable
-	private BiFunction<@NotNull Inventory, @NotNull Integer, @NotNull ServerSlotBase> defaultContainerSlot = null;
+	private BiFunction<@NotNull Container, @NotNull Integer, @NotNull ServerSlotBase> defaultContainerSlot = null;
 	private int highestContainerID = 0;
 
 	/**
@@ -47,7 +47,7 @@ public final class ServerGuiBuilder {
 
 	/**
 	 * Sets a provider that creates the default slot objects for the container inventory section of the GUI.
-	 * If set to null it'll default to the container slots as defined in {@link ServerGuiBase#getSlotForContainerInv(Inventory, int)}
+	 * If set to null it'll default to the container slots as defined in {@link ServerGuiBase#getSlotForContainerInv(Container, int)}
 	 *
 	 * @param defaultContainerSlot Provides a {@link ServerSlotBase} when called.
 	 * @return A reference to this object.
@@ -56,13 +56,13 @@ public final class ServerGuiBuilder {
 	 * @author Useless
 	 */
 	@NotNull
-	public ServerGuiBuilder setDefaultContainerSlot(@Nullable BiFunction<@NotNull Inventory, @NotNull Integer, @NotNull ServerSlotBase> defaultContainerSlot){
+	public ServerGuiBuilder setDefaultContainerSlot(@Nullable BiFunction<@NotNull Container, @NotNull Integer, @NotNull ServerSlotBase> defaultContainerSlot){
 		this.defaultContainerSlot = defaultContainerSlot;
 		return this;
 	}
 	/**
 	 * Sets a provider that creates the default slot objects for the player inventory section of the GUI.
-	 * If set to null it'll default to the container slots as defined in {@link ServerGuiBase#getSlotForPlayerInv(Inventory, int)}
+	 * If set to null it'll default to the container slots as defined in {@link ServerGuiBase#getSlotForPlayerInv(Container, int)}
 	 *
 	 * @param defaultPlayerSlot Provides a {@link ServerSlotBase} when called.
 	 * @return A reference to this object.
@@ -71,13 +71,13 @@ public final class ServerGuiBuilder {
 	 * @author Useless
 	 */
 	@NotNull
-	public ServerGuiBuilder setDefaultPlayerSlot(@Nullable BiFunction<@NotNull Inventory, @NotNull Integer, @NotNull ServerSlotBase> defaultPlayerSlot){
+	public ServerGuiBuilder setDefaultPlayerSlot(@Nullable BiFunction<@NotNull Container, @NotNull Integer, @NotNull ServerSlotBase> defaultPlayerSlot){
 		this.defaultPlayerSlot = defaultPlayerSlot;
 		return this;
 	}
 
 	/**
-	 * Sets a {@link ServerSlotBase} provider mapped to a specific container inventory id.
+	 * Sets a {@link ServerSlotBase} provider mapped to a specific container id.
 	 * If provided ID is greater than the max allocated slots, the allocated slot amount
 	 * will automatically increase.
 	 *
@@ -89,7 +89,7 @@ public final class ServerGuiBuilder {
 	 * @author Useless
 	 */
 	@NotNull
-	public ServerGuiBuilder setContainerSlot(int id, @NotNull Function<@NotNull Inventory, @NotNull ServerSlotBase> buttonFunction){
+	public ServerGuiBuilder setContainerSlot(int id, @NotNull Function<@NotNull Container, @NotNull ServerSlotBase> buttonFunction){
 		containerSlotMap.put(id, Objects.requireNonNull(buttonFunction));
 		if (id > highestContainerID) {
 			highestContainerID = id;
@@ -97,7 +97,7 @@ public final class ServerGuiBuilder {
 		return this;
 	}
 	/**
-	 * Sets a {@link ServerSlotBase} provider mapped to a specific player inventory id.
+	 * Sets a {@link ServerSlotBase} provider mapped to a specific player container id.
 	 *
 	 * @param id Slot Id value.
 	 * @param buttonFunction Provides a {@link ServerSlotBase} when called.
@@ -107,7 +107,7 @@ public final class ServerGuiBuilder {
 	 * @author Useless
 	 */
 	@NotNull
-	public ServerGuiBuilder setPlayerSlot(int id, @NotNull Function<@NotNull Inventory, @NotNull ServerSlotBase> buttonFunction){
+	public ServerGuiBuilder setPlayerSlot(int id, @NotNull Function<@NotNull Container, @NotNull ServerSlotBase> buttonFunction){
 		playerSlotMap.put(id, Objects.requireNonNull(buttonFunction));
 		return this;
 	}
@@ -123,16 +123,16 @@ public final class ServerGuiBuilder {
 	public ServerGuiBase build(@NotNull Player player, @NotNull String title){
 		final int rows = (int) Math.ceil(highestContainerID +1 /9f);
         return new ServerGuiBase(player, title, rows){
-			public ServerSlotBase getSlotForContainerInv(Inventory containerInventory, int id){
+			public ServerSlotBase getSlotForContainerInv(Container container, int id){
 				if (containerSlotMap.get(id) != null){
-					return containerSlotMap.get(id).apply(containerInventory);
+					return containerSlotMap.get(id).apply(container);
 				}
 				if (defaultContainerSlot != null){
-					return defaultContainerSlot.apply(containerInventory, id);
+					return defaultContainerSlot.apply(container, id);
 				}
-				return super.getSlotForContainerInv(containerInventory, id);
+				return super.getSlotForContainerInv(container, id);
 			}
-			public ServerSlotBase getSlotForPlayerInv(Inventory playerInventory, int id){
+			public ServerSlotBase getSlotForPlayerInv(Container playerInventory, int id){
 				if (playerSlotMap.get(id) != null){
 					return playerSlotMap.get(id).apply(playerInventory);
 				}

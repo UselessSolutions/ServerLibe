@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.useless.serverlibe.api.event.player.inventory.InventoryClickEvent;
 import org.useless.serverlibe.api.gui.GuiHelper;
-import org.useless.serverlibe.api.gui.ServerGuiBase;
 
 @Mixin(value = ServerPacketHandler.class, remap = false)
 public class ServerPacketHandlerMixinHandleInventoryClick {
@@ -32,12 +31,7 @@ public class ServerPacketHandlerMixinHandleInventoryClick {
 			packet.actionId,
 			packet.itemStack
 		);
-		if (playerEntity.craftingInventory instanceof ContainerChest && playerEntity.craftingInventory instanceof ServerGuiBase){
-			ServerGuiBase guiBase = (ServerGuiBase)playerEntity.craftingInventory;
-			guiBase.onInventoryAction(clickEvent);
-		} else {
-			InventoryClickEvent.getEventContainer().runMethods(clickEvent);
-		}
+		InventoryClickEvent.getEventContainer().runMethods(clickEvent);
 		if (clickEvent.isCancelled()) {
 			resyncInventory();
 			ci.cancel();
