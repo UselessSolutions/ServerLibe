@@ -4,7 +4,7 @@ import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
-import net.minecraft.server.net.handler.ServerPacketHandler;
+import net.minecraft.server.net.handler.PacketHandlerServer;
 import net.minecraft.server.world.ServerPlayerController;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -13,12 +13,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.useless.serverlibe.api.event.player.PlayerItemPlaceEvent;
 
-@Mixin(value = ServerPacketHandler.class, remap = false)
-public class ServerPacketHandlerMixinHandlePlace {
+@Mixin(value = PacketHandlerServer.class, remap = false)
+public class PacketHandlerServerMixinHandlePlace {
 
     @Redirect
 		(
-		method = "Lnet/minecraft/server/net/handler/ServerPacketHandler;handlePlace(Lnet/minecraft/core/net/packet/UseItemPacket;)V",
+		method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handlePlace(Lnet/minecraft/core/net/packet/UseItemPacket;)V",
 		at = @At
 			(
 			value = "INVOKE",

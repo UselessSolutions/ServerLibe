@@ -2,8 +2,8 @@ package org.useless.serverlibe.mixin.inventory;
 
 import net.minecraft.core.net.packet.ContainerOpenPacket;
 import net.minecraft.core.net.packet.Packet;
-import net.minecraft.server.entity.player.ServerPlayer;
-import net.minecraft.server.net.handler.ServerPacketHandler;
+import net.minecraft.server.entity.player.PlayerServer;
+import net.minecraft.server.net.handler.PacketHandlerServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,10 +11,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.useless.serverlibe.api.event.player.inventory.InventoryServerOpenEvent;
 
-@Mixin(value = ServerPacketHandler.class, remap = false)
-public class ServerPacketHandlerMixinHandleInventoryOpenGUI {
+@Mixin(value = PacketHandlerServer.class, remap = false)
+public class PacketHandlerServerMixinHandleInventoryOpenGUI {
 	@Shadow
-	private ServerPlayer playerEntity;
+	private PlayerServer playerEntity;
 
 	@Inject(method = "sendPacket(Lnet/minecraft/core/net/packet/Packet;)V", at = @At("HEAD"), cancellable = true)
 	private void serveribe$onGUIOpen(Packet packet, CallbackInfo ci){

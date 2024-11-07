@@ -3,25 +3,25 @@ package org.useless.serverlibe.api.gui;
 import net.minecraft.core.InventoryAction;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.player.inventory.container.Container;
-import net.minecraft.core.player.inventory.container.SimpleContainer;
-import net.minecraft.core.player.inventory.menu.ContainerMenu;
+import net.minecraft.core.player.inventory.container.ContainerSimple;
+import net.minecraft.core.player.inventory.menu.MenuContainer;
 import net.minecraft.core.player.inventory.slot.Slot;
-import net.minecraft.server.entity.player.ServerPlayer;
+import net.minecraft.server.entity.player.PlayerServer;
 import org.jetbrains.annotations.NotNull;
 import org.useless.serverlibe.api.event.player.inventory.InventoryClickEvent;
 import org.useless.serverlibe.api.gui.slot.ServerSlotBase;
-import org.useless.serverlibe.mixin.accessors.ContainerMenuAccessor;
+import org.useless.serverlibe.mixin.accessors.MenuContainerAccessor;
 
 import java.util.List;
 
-public class ServerGuiBase extends ContainerMenu {
+public class ServerGuiBase extends MenuContainer {
 	public final String inventoryTitle;
 	public final int slotsCount;
 	public final Container container;
 
 	public ServerGuiBase(Player player, String inventoryTitle, int rowCount) {
-		super(player.inventory, new SimpleContainer(inventoryTitle, rowCount * 9));
-		this.container = ((ContainerMenuAccessor)this).getContainerInventory();
+		super(player.inventory, new ContainerSimple(inventoryTitle, rowCount * 9));
+		this.container = ((MenuContainerAccessor)this).getContainerInventory();
 		this.inventoryTitle = inventoryTitle;
 		this.slotsCount = rowCount * 9;
 
@@ -79,8 +79,8 @@ public class ServerGuiBase extends ContainerMenu {
 		return targets;
 	}
 	public void resyncGUI(Player player){
-		if (player instanceof ServerPlayer){
-			GuiHelper.syncInventory((ServerPlayer) player);
+		if (player instanceof PlayerServer){
+			GuiHelper.syncInventory((PlayerServer) player);
 		}
 	}
 

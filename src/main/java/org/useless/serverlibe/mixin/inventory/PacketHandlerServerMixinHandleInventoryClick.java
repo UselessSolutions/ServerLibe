@@ -1,8 +1,8 @@
 package org.useless.serverlibe.mixin.inventory;
 
 import net.minecraft.core.net.packet.ContainerClickPacket;
-import net.minecraft.server.entity.player.ServerPlayer;
-import net.minecraft.server.net.handler.ServerPacketHandler;
+import net.minecraft.server.entity.player.PlayerServer;
+import net.minecraft.server.net.handler.PacketHandlerServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -12,10 +12,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.useless.serverlibe.api.event.player.inventory.InventoryClickEvent;
 import org.useless.serverlibe.api.gui.GuiHelper;
 
-@Mixin(value = ServerPacketHandler.class, remap = false)
-public class ServerPacketHandlerMixinHandleInventoryClick {
+@Mixin(value = PacketHandlerServer.class, remap = false)
+public class PacketHandlerServerMixinHandleInventoryClick {
 	@Shadow
-	private ServerPlayer playerEntity;
+	private PlayerServer playerEntity;
 
 	@Inject
 		(

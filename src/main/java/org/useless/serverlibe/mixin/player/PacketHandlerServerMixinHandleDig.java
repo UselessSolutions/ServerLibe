@@ -2,8 +2,8 @@ package org.useless.serverlibe.mixin.player;
 
 import net.minecraft.core.net.packet.BlockUpdatePacket;
 import net.minecraft.core.util.helper.Side;
-import net.minecraft.server.entity.player.ServerPlayer;
-import net.minecraft.server.net.handler.ServerPacketHandler;
+import net.minecraft.server.entity.player.PlayerServer;
+import net.minecraft.server.net.handler.PacketHandlerServer;
 import net.minecraft.server.world.ServerPlayerController;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,14 +15,14 @@ import org.useless.serverlibe.api.event.player.PlayerDigEvent;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-@Mixin(value = ServerPacketHandler.class, remap = false)
-public class ServerPacketHandlerMixinHandleDig {
+@Mixin(value = PacketHandlerServer.class, remap = false)
+public class PacketHandlerServerMixinHandleDig {
 	@Shadow
-	private ServerPlayer playerEntity;
+	private PlayerServer playerEntity;
 
 	@Redirect
 		(
-			method = "Lnet/minecraft/server/net/handler/ServerPacketHandler;handleBlockDig(Lnet/minecraft/core/net/packet/PlayerActionPacket;)V",
+			method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handleBlockDig(Lnet/minecraft/core/net/packet/PlayerActionPacket;)V",
 			at = @At
 				(
 					value = "INVOKE",
@@ -43,7 +43,7 @@ public class ServerPacketHandlerMixinHandleDig {
 
 	@Redirect
 		(
-			method = "Lnet/minecraft/server/net/handler/ServerPacketHandler;handleBlockDig(Lnet/minecraft/core/net/packet/PlayerActionPacket;)V",
+			method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handleBlockDig(Lnet/minecraft/core/net/packet/PlayerActionPacket;)V",
 			at = @At
 				(
 					value = "INVOKE",
@@ -59,7 +59,7 @@ public class ServerPacketHandlerMixinHandleDig {
 	}
 	@Redirect
 		(
-			method = "Lnet/minecraft/server/net/handler/ServerPacketHandler;handleBlockDig(Lnet/minecraft/core/net/packet/PlayerActionPacket;)V",
+			method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handleBlockDig(Lnet/minecraft/core/net/packet/PlayerActionPacket;)V",
 			at = @At
 				(
 					value = "INVOKE",

@@ -2,8 +2,8 @@ package org.useless.test;
 
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.entity.LightningEntity;
-import net.minecraft.core.entity.projectile.FireballProjectile;
+import net.minecraft.core.entity.EntityLightning;
+import net.minecraft.core.entity.projectile.ProjectileFireball;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.net.command.TextFormatting;
@@ -11,7 +11,7 @@ import net.minecraft.core.net.packet.AddParticlePacket;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.generate.feature.WorldFeatureLake;
-import net.minecraft.server.entity.player.ServerPlayer;
+import net.minecraft.server.entity.player.PlayerServer;
 import org.useless.serverlibe.api.Listener;
 import org.useless.serverlibe.api.annotations.EventListener;
 import org.useless.serverlibe.api.enums.Priority;
@@ -28,7 +28,7 @@ public class TestFeatureListener implements Listener {
 	@EventListener
 	public void playerTrail(PlayerMovementEvent movementEvent){
 		if (movementEvent.distanceMoved < 0.05) return;
-		final ServerPlayer serverPlayer = (ServerPlayer)movementEvent.player;
+		final PlayerServer serverPlayer = (PlayerServer)movementEvent.player;
 		final boolean movingQuick = movementEvent.distanceMoved > 0.7;
 		final String particleKey = movingQuick ? "blueflame" : "flame";
 		serverPlayer.playerNetServerHandler.sendPacket(new AddParticlePacket(particleKey, serverPlayer.x, serverPlayer.y, serverPlayer.z, 0, 0, 0, 0));
@@ -41,7 +41,7 @@ public class TestFeatureListener implements Listener {
 	}
 	@EventListener(priority = Priority.LOW, ignoreCancelled = true)
 	public void blockBreakEffect(PlayerDigEvent digEvent){
-		final ServerPlayer playerMP = (ServerPlayer)digEvent.player;
+		final PlayerServer playerMP = (PlayerServer)digEvent.player;
 		playerMP.playerNetServerHandler.sendPacket(new AddParticlePacket
 			(
 				"explode",
@@ -78,7 +78,7 @@ public class TestFeatureListener implements Listener {
 			double vX = look.x;
 			double vY = look.y;
 			double vZ = look.z;
-			FireballProjectile fireball = new FireballProjectile(useEvent.world, useEvent.player, vX, vY, vZ);
+			ProjectileFireball fireball = new ProjectileFireball(useEvent.world, useEvent.player, vX, vY, vZ);
 			fireball.y += 0.9f;
 			double velocity = MathHelper.sqrt(vX * vX + vY * vY + vZ * vZ);
 			if (velocity != 0.0) {
@@ -97,7 +97,7 @@ public class TestFeatureListener implements Listener {
 	@EventListener
 	public void onAttack(PlayerEntityInteractEvent interactEvent){
 		if (interactEvent.itemstack != null && interactEvent.itemstack.getItem() == Items.STICK){
-			LightningEntity lightningBolt = new LightningEntity(interactEvent.world, interactEvent.targetEntity.x, interactEvent.targetEntity.y, interactEvent.targetEntity.z);
+			EntityLightning lightningBolt = new EntityLightning(interactEvent.world, interactEvent.targetEntity.x, interactEvent.targetEntity.y, interactEvent.targetEntity.z);
 			interactEvent.world.addWeatherEffect(lightningBolt);
 			interactEvent.setCancelled(true);
 		}
