@@ -28,7 +28,7 @@ public abstract class ChunkDecoratorNetherMixin implements ChunkDecorator {
 			at = @At
 				(
 					value = "FIELD",
-					target = "Lnet/minecraft/core/block/SandBlock;fallInstantly:Z",
+					target = "Lnet/minecraft/core/block/BlockSand;fallInstantly:Z",
 					shift = At.Shift.AFTER,
 					ordinal = 0
 				),
