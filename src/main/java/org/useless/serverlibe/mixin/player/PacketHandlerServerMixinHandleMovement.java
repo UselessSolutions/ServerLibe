@@ -1,8 +1,8 @@
 package org.useless.serverlibe.mixin.player;
 
-import net.minecraft.core.net.packet.Packet10Flying;
-import net.minecraft.server.entity.player.EntityPlayerMP;
-import net.minecraft.server.net.handler.NetServerHandler;
+import net.minecraft.core.net.packet.MovePlayerPacket;
+import net.minecraft.server.entity.player.PlayerServer;
+import net.minecraft.server.net.handler.PacketHandlerServer;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -11,10 +11,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.useless.serverlibe.api.event.player.PlayerMovementEvent;
 
-@Mixin(value = NetServerHandler.class, remap = false)
-public class NetServerHandlerMixinHandleMovement {
+@Mixin(value = PacketHandlerServer.class, remap = false)
+public class PacketHandlerServerMixinHandleMovement {
 	@Shadow
-	private EntityPlayerMP playerEntity;
+	private PlayerServer playerEntity;
 
     @Shadow
 	private double lastPosX;
@@ -27,32 +27,31 @@ public class NetServerHandlerMixinHandleMovement {
 
 	@Inject
 		(
-			method = "handleFlying(Lnet/minecraft/core/net/packet/Packet10Flying;)V",
+			method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handleFlying(Lnet/minecraft/core/net/packet/MovePlayerPacket;)V",
 			at = @At(
 				"HEAD"
 			),
 			cancellable = true
 		)
-	public void serverlibe$handleMovementBefore(@NotNull final Packet10Flying packet, @NotNull final CallbackInfo ci){
+	public void serverlibe$handleMovementBefore(@NotNull final MovePlayerPacket packet, @NotNull final CallbackInfo ci){
 		final double distanceMoved = Math.sqrt(
 			Math.pow(
-				packet.xPosition - lastPosX, 2) +
-				Math.pow(packet.yPosition - lastPosY, 2) +
-				Math.pow(packet.zPosition - lastPosZ, 2));
+				packet.x - lastPosX, 2) +
+				Math.pow(packet.y - lastPosY, 2) +
+				Math.pow(packet.z - lastPosZ, 2));
 
 		final PlayerMovementEvent playerMovementEvent = PlayerMovementEvent.getEventContainer().runMethods(new PlayerMovementEvent(
 			playerEntity,
 			playerEntity.world,
-			packet.xPosition,
-			packet.yPosition,
-			packet.zPosition,
+			packet.x,
+			packet.y,
+			packet.z,
 			distanceMoved,
-			packet.stance,
 			packet.yaw,
 			packet.pitch,
 			packet.onGround,
-			packet.moving,
-			packet.rotating));
+			packet.hasPosition,
+			packet.hasRotation));
 
 		if (playerMovementEvent.isCancelled()) ci.cancel();
 	}

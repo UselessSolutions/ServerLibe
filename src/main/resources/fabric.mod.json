@@ -22,7 +22,6 @@
 			"org.useless.serverlibe.ServerLibe"
     ],
 		"serverlibe": [
-			"org.useless.test.TestPlugin"
 		]
 	},
   "mixins": [
@@ -30,7 +29,7 @@
   ],
 
   "depends": {
-		"minecraft": "~7.2-beta",
+		"minecraft": "Nightly.2024-11-6",
     "fabricloader": ">=0.15.5"
   },
   "suggests": {

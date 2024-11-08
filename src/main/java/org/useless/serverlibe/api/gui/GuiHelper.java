@@ -1,30 +1,30 @@
 package org.useless.serverlibe.api.gui;
 
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.net.packet.Packet100OpenWindow;
-import net.minecraft.server.entity.player.EntityPlayerMP;
-import org.useless.serverlibe.mixin.accessors.EntityPlayerMPAccessor;
+import net.minecraft.core.net.packet.ContainerOpenPacket;
+import net.minecraft.server.entity.player.PlayerServer;
+import org.useless.serverlibe.mixin.accessors.PlayerServerAccessor;
 
 import java.util.ArrayList;
 
 public class GuiHelper {
 	/**
-	 * Sends a {@link Packet100OpenWindow} to open the generic container GUI on the client.
+	 * Sends a {@link ContainerOpenPacket} to open the generic container GUI on the client.
 	 * While this GUI is its interaction rules will be governed by the {@link ServerGuiBase} on the server.
 	 *
-	 * @param player {@link net.minecraft.core.entity.player.EntityPlayer Player} to make open the GUI.
+	 * @param player {@link net.minecraft.server.entity.player.PlayerServer; Player} to make open the GUI.
 	 * @param serverGui Custom {@link ServerGuiBase server gui} to make the player open.
 	 *
 	 * @since beta.1
 	 * @author Useless
 	 */
-	public static void openCustomServerGui(EntityPlayerMP player, ServerGuiBase serverGui){
-		EntityPlayerMPAccessor accessor = (EntityPlayerMPAccessor)player;
+	public static void openCustomServerGui(PlayerServer player, ServerGuiBase serverGui){
+		PlayerServerAccessor accessor = (PlayerServerAccessor)player;
 		accessor.serverlibe$getNextWindowId();
-		player.playerNetServerHandler.sendPacket(new Packet100OpenWindow(accessor.serverlibe$getCurrentWindowId(), 0, serverGui.inventoryTitle, serverGui.slotsCount));
+		player.playerNetServerHandler.sendPacket(new ContainerOpenPacket(accessor.serverlibe$getCurrentWindowId(), 0, serverGui.inventoryTitle, serverGui.slotsCount));
 		player.craftingInventory = serverGui;
-		player.craftingInventory.windowId = accessor.serverlibe$getCurrentWindowId();
-		player.craftingInventory.onContainerInit(player);
+		player.craftingInventory.containerId = accessor.serverlibe$getCurrentWindowId();
+		player.craftingInventory.addSlotListener(player);
 	}
 
 	/**
@@ -38,10 +38,10 @@ public class GuiHelper {
 	 * @since beta.1
 	 * @author Useless
 	 */
-	public static void syncInventory(EntityPlayerMP player){
+	public static void syncInventory(PlayerServer player){
 		ArrayList<ItemStack> arraylist = new ArrayList<>();
-		for (int i = 0; i < player.craftingInventory.inventorySlots.size(); ++i) {
-			arraylist.add(player.craftingInventory.inventorySlots.get(i).getStack());
+		for (int i = 0; i < player.craftingInventory.slots.size(); ++i) {
+			arraylist.add(player.craftingInventory.slots.get(i).getItem());
 		}
 		player.updateCraftingInventory(player.craftingInventory, arraylist);
 	}

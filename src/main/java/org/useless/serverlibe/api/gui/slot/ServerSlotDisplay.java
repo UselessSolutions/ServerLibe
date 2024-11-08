@@ -1,7 +1,7 @@
 package org.useless.serverlibe.api.gui.slot;
 
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.player.inventory.IInventory;
+import net.minecraft.core.player.inventory.container.Container;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -11,21 +11,21 @@ import org.jetbrains.annotations.Nullable;
  * @since beta.1
  */
 public class ServerSlotDisplay extends ServerSlotBase{
-	public ServerSlotDisplay(IInventory inventory, int id){
-		this(null, inventory, id);
+	public ServerSlotDisplay(Container container, int id){
+		this(null, container, id);
 	}
 
 	/**
 	 * @param icon Itemstack to display to the client, shows nothing when {@code null}
-	 * @param inventory Inventory slot is attached to.
+	 * @param container Container slot is attached to.
 	 * @param id Index of stack array slot is attached to.
 	 *
 	 * @author Useless
 	 * @since beta.1
 	 */
-	public ServerSlotDisplay(@Nullable ItemStack icon, IInventory inventory, int id) {
-		super(inventory, id);
-		inventory.setInventorySlotContents(id, icon);
+	public ServerSlotDisplay(@Nullable ItemStack icon, Container container, int id) {
+		super(container, id);
+		container.setItem(id, icon);
 	}
 
 	/**
@@ -45,7 +45,6 @@ public class ServerSlotDisplay extends ServerSlotBase{
 	 * @author Useless
 	 * @since beta.1
 	 */
-	@Override
 	public boolean canPutStackInSlot(ItemStack itemstack) {
 		return false;
 	}

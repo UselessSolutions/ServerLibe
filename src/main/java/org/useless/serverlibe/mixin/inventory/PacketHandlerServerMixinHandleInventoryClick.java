@@ -1,9 +1,8 @@
 package org.useless.serverlibe.mixin.inventory;
 
-import net.minecraft.core.net.packet.Packet102WindowClick;
-import net.minecraft.core.player.inventory.ContainerChest;
-import net.minecraft.server.entity.player.EntityPlayerMP;
-import net.minecraft.server.net.handler.NetServerHandler;
+import net.minecraft.core.net.packet.ContainerClickPacket;
+import net.minecraft.server.entity.player.PlayerServer;
+import net.minecraft.server.net.handler.PacketHandlerServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -12,19 +11,18 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.useless.serverlibe.api.event.player.inventory.InventoryClickEvent;
 import org.useless.serverlibe.api.gui.GuiHelper;
-import org.useless.serverlibe.api.gui.ServerGuiBase;
 
-@Mixin(value = NetServerHandler.class, remap = false)
-public class NetServerHandlerMixinHandleInventoryClick {
+@Mixin(value = PacketHandlerServer.class, remap = false)
+public class PacketHandlerServerMixinHandleInventoryClick {
 	@Shadow
-	private EntityPlayerMP playerEntity;
+	private PlayerServer playerEntity;
 
 	@Inject
 		(
 			method = "handleWindowClick",
 			at = @At("HEAD"),
 			cancellable = true)
-	public void serverlibe$onInventoryClick(Packet102WindowClick packet, CallbackInfo ci){
+	public void serverlibe$onInventoryClick(ContainerClickPacket packet, CallbackInfo ci){
 		InventoryClickEvent clickEvent = new InventoryClickEvent(
 			playerEntity,
 			packet.window_Id,
@@ -33,12 +31,7 @@ public class NetServerHandlerMixinHandleInventoryClick {
 			packet.actionId,
 			packet.itemStack
 		);
-		if (playerEntity.craftingInventory instanceof ContainerChest && playerEntity.craftingInventory instanceof ServerGuiBase){
-			ServerGuiBase guiBase = (ServerGuiBase)playerEntity.craftingInventory;
-			guiBase.onInventoryAction(clickEvent);
-		} else {
-			InventoryClickEvent.getEventContainer().runMethods(clickEvent);
-		}
+		InventoryClickEvent.getEventContainer().runMethods(clickEvent);
 		if (clickEvent.isCancelled()) {
 			resyncInventory();
 			ci.cancel();

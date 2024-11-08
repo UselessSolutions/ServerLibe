@@ -1,6 +1,7 @@
 package org.useless.serverlibe.api.gui.slot;
 
-import net.minecraft.core.player.inventory.IInventory;
+import net.minecraft.core.player.inventory.container.Container;
+
 import net.minecraft.core.player.inventory.slot.Slot;
 import org.useless.serverlibe.api.event.player.inventory.InventoryClickEvent;
 
@@ -15,11 +16,11 @@ public class ServerSlotBase extends Slot {
 	/**
 	 * Foundational slot for all {@link org.useless.serverlibe.api.gui.ServerGuiBase ServerGuiBase} slots.
 	 *
-	 * @param inventory Inventory slot is attached to.
+	 * @param container Container slot is attached to.
 	 * @param id Index of stack array slot is attached to.
 	 */
-	public ServerSlotBase(IInventory inventory, int id) {
-		super(inventory, id, 0, 0); // Position doesn't matter since this is server only
+	public ServerSlotBase(Container container, int id) {
+		super(container, id, 0, 0); // Position doesn't matter since this is server only
 	}
 
 

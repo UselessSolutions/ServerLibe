@@ -9,7 +9,11 @@ import org.useless.serverlibe.api.Listener;
 import org.useless.serverlibe.api.ServerLibeEntrypoint;
 import org.useless.serverlibe.api.annotations.EventListener;
 import org.useless.serverlibe.internal.EventContainer;
+import org.useless.test.DebugInfoListener;
+import org.useless.test.GuiTestListener;
+import org.useless.test.TestFeatureListener;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
@@ -21,8 +25,18 @@ public class ServerLibe implements ModInitializer {
     @Override
     public void onInitialize() {
 //		if (FabricLoader.getInstance().getEnvironmentType() != EnvType.SERVER) return;
-		FabricLoader.getInstance().getEntrypoints("serverlibe", ServerLibeEntrypoint.class).forEach(ServerLibeEntrypoint::serverlibeInit);
-        LOGGER.info("ServerLibe initialized.");
+		for (ServerLibeEntrypoint serverLibeEntrypoint : FabricLoader.getInstance().getEntrypoints("serverlibe", ServerLibeEntrypoint.class)) {
+			try {
+				serverLibeEntrypoint.serverlibeInit();
+			} catch (IOException e) {
+				LOGGER.error("Failed to get EntryPoint");
+				continue;
+			}
+		}
+		LOGGER.info("ServerLibe initialized.");
+		//registerListener(new DebugInfoListener());
+		//registerListener(new GuiTestListener());
+		//registerListener(new TestFeatureListener());
     }
 
 	/**
@@ -42,7 +56,7 @@ public class ServerLibe implements ModInitializer {
 				if (types.length != 1) throw new RuntimeException(String.format("Method '%s' in class '%s' has '%d' parameters, all event methods must have exactly 1 parameter!", m, listener.getClass().getName(), types.length));
 				Class<?> event = (Class<?>) types[0];
                 try {
-					EventContainer eventContainer = (EventContainer) event.getMethod("getEventContainer", null).invoke(null);
+					EventContainer eventContainer = (EventContainer) event.getMethod("getEventContainer", (Class<?>[]) null).invoke(null);
 					eventContainer.addEvent(listener, m, anno);
                 } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
                     throw new RuntimeException(String.format("Type: %s, Error: %s", event, e));
