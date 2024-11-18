@@ -2,8 +2,6 @@ package org.useless.serverlibe.api.gui;
 
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.PacketContainerOpen;
-import net.minecraft.core.net.packet.PacketContainerSetContent;
-import net.minecraft.core.net.packet.PacketContainerSetSlot;
 import net.minecraft.server.entity.player.PlayerServer;
 import org.useless.serverlibe.mixin.accessors.PlayerServerAccessor;
 
@@ -14,19 +12,19 @@ public class GuiHelper {
 	 * Sends a {@link PacketContainerOpen} to open the generic container GUI on the client.
 	 * While this GUI is its interaction rules will be governed by the {@link ServerGuiBase} on the server.
 	 *
-	 * @param player {@link net.minecraft.server.entity.player.PlayerServer; Player} to make open the GUI.
-	 * @param serverGui Custom {@link ServerGuiBase server gui} to make the player open.
+	 * @param playerServer {@link net.minecraft.server.entity.player.PlayerServer; Player} to make open the GUI.
+	 * @param serverGui Custom {@link ServerGuiBase server gui} to make the playerServer open.
 	 *
 	 * @since beta.1
 	 * @author Useless
 	 */
-	public static void openCustomServerGui(PlayerServer player, ServerGuiBase serverGui){
-		PlayerServerAccessor accessor = (PlayerServerAccessor)player;
+	public static void openCustomServerGui(PlayerServer playerServer, ServerGuiBase serverGui){
+		PlayerServerAccessor accessor = (PlayerServerAccessor)playerServer;
 		accessor.serverlibe$getNextWindowId();
-		player.playerNetServerHandler.sendPacket(new PacketContainerOpen(accessor.serverlibe$getCurrentWindowId(), PacketContainerOpen.TYPE_GENERIC_CONTAINER, serverGui.inventoryTitle, serverGui.slotsCount));
-		player.craftingInventory = serverGui;
-		player.craftingInventory.containerId = accessor.serverlibe$getCurrentWindowId();
-		player.craftingInventory.addSlotListener(player);
+		playerServer.playerNetServerHandler.sendPacket(new PacketContainerOpen(accessor.serverlibe$getCurrentWindowId(), 0, serverGui.inventoryTitle, serverGui.slotsCount));
+		playerServer.craftingInventory = serverGui;
+		playerServer.craftingInventory.containerId = accessor.serverlibe$getCurrentWindowId();
+		playerServer.craftingInventory.addSlotListener(playerServer);
 	}
 
 	/**
@@ -46,6 +44,5 @@ public class GuiHelper {
 			arraylist.add(player.craftingInventory.slots.get(i).getItem());
 		}
 		player.updateCraftingInventory(player.craftingInventory, arraylist);
-		player.playerNetServerHandler.sendPacket(new PacketContainerSetSlot(-1, 0, null));
 	}
 }
