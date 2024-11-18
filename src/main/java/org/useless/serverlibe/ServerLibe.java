@@ -35,8 +35,8 @@ public class ServerLibe implements ModInitializer {
 		}
 		LOGGER.info("ServerLibe initialized.");
 		//registerListener(new DebugInfoListener());
-		//registerListener(new GuiTestListener());
-		//registerListener(new TestFeatureListener());
+		registerListener(new GuiTestListener());
+		registerListener(new TestFeatureListener());
     }
 
 	/**

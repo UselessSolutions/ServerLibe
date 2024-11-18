@@ -2,6 +2,7 @@ package org.useless.serverlibe.api.gui;
 
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.net.packet.PacketContainerOpen;
+import net.minecraft.core.net.packet.PacketContainerSetSlot;
 import net.minecraft.server.entity.player.PlayerServer;
 import org.useless.serverlibe.mixin.accessors.PlayerServerAccessor;
 
@@ -21,7 +22,7 @@ public class GuiHelper {
 	public static void openCustomServerGui(PlayerServer playerServer, ServerGuiBase serverGui){
 		PlayerServerAccessor accessor = (PlayerServerAccessor)playerServer;
 		accessor.serverlibe$getNextWindowId();
-		playerServer.playerNetServerHandler.sendPacket(new PacketContainerOpen(accessor.serverlibe$getCurrentWindowId(), 0, serverGui.inventoryTitle, serverGui.slotsCount));
+		playerServer.playerNetServerHandler.sendPacket(new PacketContainerOpen(accessor.serverlibe$getCurrentWindowId(), PacketContainerOpen.TYPE_GENERIC_CONTAINER, serverGui.inventoryTitle, serverGui.slotsCount));
 		playerServer.craftingInventory = serverGui;
 		playerServer.craftingInventory.containerId = accessor.serverlibe$getCurrentWindowId();
 		playerServer.craftingInventory.addSlotListener(playerServer);
@@ -44,5 +45,6 @@ public class GuiHelper {
 			arraylist.add(player.craftingInventory.slots.get(i).getItem());
 		}
 		player.updateCraftingInventory(player.craftingInventory, arraylist);
+		player.playerNetServerHandler.sendPacket(new PacketContainerSetSlot(-1, 0, player.inventory.getHeldItemStack()));
 	}
 }
