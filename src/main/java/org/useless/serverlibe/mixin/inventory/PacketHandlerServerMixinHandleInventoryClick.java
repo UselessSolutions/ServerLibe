@@ -1,6 +1,7 @@
 package org.useless.serverlibe.mixin.inventory;
 
 import net.minecraft.core.net.packet.PacketContainerClick;
+import net.minecraft.core.player.inventory.menu.MenuContainer;
 import net.minecraft.server.entity.player.PlayerServer;
 import net.minecraft.server.net.handler.PacketHandlerServer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.useless.serverlibe.api.event.player.inventory.InventoryClickEvent;
 import org.useless.serverlibe.api.gui.GuiHelper;
+import org.useless.serverlibe.api.gui.ServerGuiBase;
 
 @Mixin(value = PacketHandlerServer.class, remap = false)
 public class PacketHandlerServerMixinHandleInventoryClick {
@@ -31,7 +33,12 @@ public class PacketHandlerServerMixinHandleInventoryClick {
 			packet.actionId,
 			packet.itemStack
 		);
-		InventoryClickEvent.getEventContainer().runMethods(clickEvent);
+		if (playerEntity.craftingInventory instanceof MenuContainer && playerEntity.craftingInventory instanceof ServerGuiBase){
+			ServerGuiBase guiBase = (ServerGuiBase)playerEntity.craftingInventory;
+			guiBase.onInventoryAction(clickEvent);
+		} else {
+			InventoryClickEvent.getEventContainer().runMethods(clickEvent);
+		}
 		if (clickEvent.isCancelled()) {
 			resyncInventory();
 			ci.cancel();
