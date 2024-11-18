@@ -7,7 +7,7 @@ import net.minecraft.core.entity.projectile.ProjectileFireball;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.item.Items;
 import net.minecraft.core.net.command.TextFormatting;
-import net.minecraft.core.net.packet.AddParticlePacket;
+import net.minecraft.core.net.packet.PacketAddParticle;
 import net.minecraft.core.util.helper.MathHelper;
 import net.minecraft.core.util.phys.Vec3;
 import net.minecraft.core.world.generate.feature.WorldFeatureLake;
@@ -31,7 +31,7 @@ public class TestFeatureListener implements Listener {
 		final PlayerServer serverPlayer = (PlayerServer)movementEvent.player;
 		final boolean movingQuick = movementEvent.distanceMoved > 0.7;
 		final String particleKey = movingQuick ? "blueflame" : "flame";
-		serverPlayer.playerNetServerHandler.sendPacket(new AddParticlePacket(particleKey, serverPlayer.x, serverPlayer.y, serverPlayer.z, 0, 0, 0, 0));
+		serverPlayer.playerNetServerHandler.sendPacket(new PacketAddParticle(particleKey, serverPlayer.x, serverPlayer.y, serverPlayer.z, 0, 0, 0, 0));
 	}
 	@EventListener(priority = Priority.HIGH)
 	public void disableBreak(PlayerDigEvent digEvent){
@@ -42,7 +42,7 @@ public class TestFeatureListener implements Listener {
 	@EventListener(priority = Priority.LOW, ignoreCancelled = true)
 	public void blockBreakEffect(PlayerDigEvent digEvent){
 		final PlayerServer playerMP = (PlayerServer)digEvent.player;
-		playerMP.playerNetServerHandler.sendPacket(new AddParticlePacket
+		playerMP.playerNetServerHandler.sendPacket(new PacketAddParticle
 			(
 				"explode",
 				digEvent.x + 0.5, digEvent.y + 0.5, digEvent.z + 0.5,
@@ -105,7 +105,7 @@ public class TestFeatureListener implements Listener {
 	@EventListener
 	public void decorate(ChunkDecorateEvent decorateEvent){
 		for (int i = 0; i < 4; i++) {
-			new WorldFeatureLake(Blocks.BLOCK_DIAMOND.id).place(decorateEvent.world, decorateEvent.random, decorateEvent.x + decorateEvent.random.nextInt(15), decorateEvent.random.nextInt(decorateEvent.world.getHeightBlocks()), decorateEvent.z + decorateEvent.random.nextInt(15));
+			new WorldFeatureLake(Blocks.BLOCK_DIAMOND.id()).place(decorateEvent.world, decorateEvent.random, decorateEvent.x + decorateEvent.random.nextInt(15), decorateEvent.random.nextInt(decorateEvent.world.getHeightBlocks()), decorateEvent.z + decorateEvent.random.nextInt(15));
 		}
 	}
 }

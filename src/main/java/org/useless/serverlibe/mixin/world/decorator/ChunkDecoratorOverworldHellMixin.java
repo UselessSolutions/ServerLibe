@@ -33,7 +33,9 @@ public abstract class ChunkDecoratorOverworldHellMixin implements ChunkDecorator
 				),
 			locals = LocalCapture.CAPTURE_FAILHARD
 		)
-	public void serverlibe$onDecorate(Chunk chunk, CallbackInfo ci, int chunkX, int chunkZ, int minY, int maxY, int rangeY, float oreHeightModifier, int x, int z, int y, Biome biome, Random rand){
+	public void serverlibe$onDecorate(Chunk chunk, CallbackInfo ci, int chunkX, int chunkZ, int minY, int maxY, int rangeY, int x, int z, Random rand, long l1, long l2){
+		int y = this.world.getHeightValue(x + 16, z + 16);
+		Biome biome = this.world.getBlockBiome(x + 16, y, z + 16);
 		ChunkDecorateEvent.getEventContainer().runMethods(new ChunkDecorateEvent(this, world, chunk, x, y, z, biome, rand));
 	}
 }

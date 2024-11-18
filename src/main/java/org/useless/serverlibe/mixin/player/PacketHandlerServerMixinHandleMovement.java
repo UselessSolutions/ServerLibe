@@ -1,6 +1,6 @@
 package org.useless.serverlibe.mixin.player;
 
-import net.minecraft.core.net.packet.MovePlayerPacket;
+import net.minecraft.core.net.packet.PacketMovePlayer;
 import net.minecraft.server.entity.player.PlayerServer;
 import net.minecraft.server.net.handler.PacketHandlerServer;
 import org.jetbrains.annotations.NotNull;
@@ -27,13 +27,13 @@ public class PacketHandlerServerMixinHandleMovement {
 
 	@Inject
 		(
-			method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handleFlying(Lnet/minecraft/core/net/packet/MovePlayerPacket;)V",
+			method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handleFlying(Lnet/minecraft/core/net/packet/PacketMovePlayer;)V",
 			at = @At(
 				"HEAD"
 			),
 			cancellable = true
 		)
-	public void serverlibe$handleMovementBefore(@NotNull final MovePlayerPacket packet, @NotNull final CallbackInfo ci){
+	public void serverlibe$handleMovementBefore(@NotNull final PacketMovePlayer packet, @NotNull final CallbackInfo ci){
 		final double distanceMoved = Math.sqrt(
 			Math.pow(
 				packet.x - lastPosX, 2) +

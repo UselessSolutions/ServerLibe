@@ -1,7 +1,7 @@
 package org.useless.serverlibe.api.gui;
 
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.net.packet.ContainerOpenPacket;
+import net.minecraft.core.net.packet.PacketContainerOpen;
 import net.minecraft.server.entity.player.PlayerServer;
 import org.useless.serverlibe.mixin.accessors.PlayerServerAccessor;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class GuiHelper {
 	/**
-	 * Sends a {@link ContainerOpenPacket} to open the generic container GUI on the client.
+	 * Sends a {@link PacketContainerOpen} to open the generic container GUI on the client.
 	 * While this GUI is its interaction rules will be governed by the {@link ServerGuiBase} on the server.
 	 *
 	 * @param player {@link net.minecraft.server.entity.player.PlayerServer; Player} to make open the GUI.
@@ -21,7 +21,7 @@ public class GuiHelper {
 	public static void openCustomServerGui(PlayerServer player, ServerGuiBase serverGui){
 		PlayerServerAccessor accessor = (PlayerServerAccessor)player;
 		accessor.serverlibe$getNextWindowId();
-		player.playerNetServerHandler.sendPacket(new ContainerOpenPacket(accessor.serverlibe$getCurrentWindowId(), 0, serverGui.inventoryTitle, serverGui.slotsCount));
+		player.playerNetServerHandler.sendPacket(new PacketContainerOpen(accessor.serverlibe$getCurrentWindowId(), 0, serverGui.inventoryTitle, serverGui.slotsCount));
 		player.craftingInventory = serverGui;
 		player.craftingInventory.containerId = accessor.serverlibe$getCurrentWindowId();
 		player.craftingInventory.addSlotListener(player);

@@ -1,6 +1,6 @@
 package org.useless.serverlibe.mixin.inventory;
 
-import net.minecraft.core.net.packet.ContainerClickPacket;
+import net.minecraft.core.net.packet.PacketContainerClick;
 import net.minecraft.server.entity.player.PlayerServer;
 import net.minecraft.server.net.handler.PacketHandlerServer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,7 +22,7 @@ public class PacketHandlerServerMixinHandleInventoryClick {
 			method = "handleWindowClick",
 			at = @At("HEAD"),
 			cancellable = true)
-	public void serverlibe$onInventoryClick(ContainerClickPacket packet, CallbackInfo ci){
+	public void serverlibe$onInventoryClick(PacketContainerClick packet, CallbackInfo ci){
 		InventoryClickEvent clickEvent = new InventoryClickEvent(
 			playerEntity,
 			packet.window_Id,
