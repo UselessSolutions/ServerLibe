@@ -1,6 +1,6 @@
 package org.useless.serverlibe.config.adapters.nbt;
 
-import com.mojang.nbt.DoubleArrayTag;
+import com.mojang.nbt.tags.DoubleArrayTag;
 
 import java.util.ArrayList;
 import java.util.HashMap;

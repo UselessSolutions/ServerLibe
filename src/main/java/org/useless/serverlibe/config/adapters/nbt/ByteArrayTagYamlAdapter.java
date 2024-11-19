@@ -1,6 +1,6 @@
 package org.useless.serverlibe.config.adapters.nbt;
 
-import com.mojang.nbt.ByteArrayTag;
+import com.mojang.nbt.tags.ByteArrayTag;
 
 import java.util.ArrayList;
 import java.util.HashMap;
