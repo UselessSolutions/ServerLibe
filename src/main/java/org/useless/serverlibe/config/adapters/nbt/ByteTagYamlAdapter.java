@@ -1,6 +1,6 @@
 package org.useless.serverlibe.config.adapters.nbt;
 
-import com.mojang.nbt.ByteTag;
+import com.mojang.nbt.tags.ByteTag;
 
 public class ByteTagYamlAdapter extends NBTTagYamlAdapter<ByteTag> {
 

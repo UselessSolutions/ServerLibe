@@ -45,7 +45,8 @@ public class ServerSlotDisplay extends ServerSlotBase{
 	 * @author Useless
 	 * @since beta.1
 	 */
-	public boolean canPutStackInSlot(ItemStack itemstack) {
+	@Override
+	public boolean mayPlace(ItemStack itemstack) {
 		return false;
 	}
 }

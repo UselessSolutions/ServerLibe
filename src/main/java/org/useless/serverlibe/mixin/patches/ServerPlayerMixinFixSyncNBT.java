@@ -1,7 +1,7 @@
 package org.useless.serverlibe.mixin.patches;
 
 import net.minecraft.core.item.ItemStack;
-import net.minecraft.core.net.packet.ContainerSetSlotPacket;
+import net.minecraft.core.net.packet.PacketContainerSetSlot;
 import net.minecraft.core.player.inventory.menu.MenuAbstract;
 import net.minecraft.server.entity.player.PlayerServer;
 import net.minecraft.server.net.handler.PacketHandlerServer;
@@ -32,7 +32,7 @@ public class ServerPlayerMixinFixSyncNBT {
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i) == null) continue;
 			if (!list.get(i).getData().getValues().isEmpty()){
-				playerNetServerHandler.sendPacket(new ContainerSetSlotPacket(container.containerId, i, list.get(i)));
+				playerNetServerHandler.sendPacket(new PacketContainerSetSlot(container.containerId, i, list.get(i)));
 			}
 		}
 	}

@@ -1,9 +1,8 @@
 package org.useless.test;
 
-import com.mojang.nbt.ByteArrayTag;
-import com.mojang.nbt.DoubleArrayTag;
+import com.mojang.nbt.tags.ByteArrayTag;
+import com.mojang.nbt.tags.DoubleArrayTag;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.core.block.Block;
 import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.ItemStack;
 import org.useless.serverlibe.ServerLibe;

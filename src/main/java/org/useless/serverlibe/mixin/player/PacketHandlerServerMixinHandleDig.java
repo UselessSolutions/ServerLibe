@@ -1,6 +1,6 @@
 package org.useless.serverlibe.mixin.player;
 
-import net.minecraft.core.net.packet.BlockUpdatePacket;
+import net.minecraft.core.net.packet.PacketBlockUpdate;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.server.entity.player.PlayerServer;
 import net.minecraft.server.net.handler.PacketHandlerServer;
@@ -22,7 +22,7 @@ public class PacketHandlerServerMixinHandleDig {
 
 	@Redirect
 		(
-			method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handleBlockDig(Lnet/minecraft/core/net/packet/PlayerActionPacket;)V",
+			method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handleBlockDig(Lnet/minecraft/core/net/packet/PacketPlayerAction;)V",
 			at = @At
 				(
 					value = "INVOKE",
@@ -43,7 +43,7 @@ public class PacketHandlerServerMixinHandleDig {
 
 	@Redirect
 		(
-			method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handleBlockDig(Lnet/minecraft/core/net/packet/PlayerActionPacket;)V",
+			method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handleBlockDig(Lnet/minecraft/core/net/packet/PacketPlayerAction;)V",
 			at = @At
 				(
 					value = "INVOKE",
@@ -59,7 +59,7 @@ public class PacketHandlerServerMixinHandleDig {
 	}
 	@Redirect
 		(
-			method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handleBlockDig(Lnet/minecraft/core/net/packet/PlayerActionPacket;)V",
+			method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handleBlockDig(Lnet/minecraft/core/net/packet/PacketPlayerAction;)V",
 			at = @At
 				(
 					value = "INVOKE",
@@ -89,7 +89,7 @@ public class PacketHandlerServerMixinHandleDig {
 
 		if (playerDigEvent.isCancelled()) {
 			// Restores the block on break if cancelled, this fixed the vanilla bug where instantly broken blocks don't reset
-			this.playerEntity.playerNetServerHandler.sendPacket(new BlockUpdatePacket(playerDigEvent.x, playerDigEvent.y, playerDigEvent.z, playerDigEvent.world));
+			this.playerEntity.playerNetServerHandler.sendPacket(new PacketBlockUpdate(playerDigEvent.x, playerDigEvent.y, playerDigEvent.z, playerDigEvent.world));
 		} else {
 			defaultAction.run();
 		}

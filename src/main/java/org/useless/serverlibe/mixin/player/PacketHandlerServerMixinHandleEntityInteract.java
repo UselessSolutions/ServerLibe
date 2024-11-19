@@ -1,7 +1,7 @@
 package org.useless.serverlibe.mixin.player;
 
 import net.minecraft.core.entity.Entity;
-import net.minecraft.core.net.packet.InteractPacket;
+import net.minecraft.core.net.packet.PacketInteract;
 import net.minecraft.server.entity.player.PlayerServer;
 import net.minecraft.server.net.handler.PacketHandlerServer;
 import net.minecraft.server.world.WorldServer;
@@ -29,7 +29,7 @@ public class PacketHandlerServerMixinHandleEntityInteract {
 				),
 			locals = LocalCapture.CAPTURE_FAILHARD,
 			cancellable = true)
-	public void serverlibe$EntityInteract(InteractPacket packet, CallbackInfo ci, WorldServer worldserver){
+	public void serverlibe$EntityInteract(PacketInteract packet, CallbackInfo ci, WorldServer worldserver){
 		Entity target = worldserver.getEntityFromId(packet.targetEntityID);
 		if (target == null) {
 			return;

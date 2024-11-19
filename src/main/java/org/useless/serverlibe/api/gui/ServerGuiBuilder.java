@@ -5,6 +5,7 @@ import net.minecraft.core.player.inventory.container.Container;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.useless.serverlibe.api.gui.slot.ServerSlotBase;
+import org.useless.serverlibe.api.gui.slot.ServerSlotDisplay;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -121,8 +122,8 @@ public final class ServerGuiBuilder {
 	 */
 	@NotNull
 	public ServerGuiBase build(@NotNull Player player, @NotNull String title){
-		final int rows = (int) Math.ceil(highestContainerID +1 /9f);
-        return new ServerGuiBase(player, title, rows){
+		final int rows = (int) Math.ceil((highestContainerID + 1) /9f);
+		return new ServerGuiBase(player, title, rows){
 			public ServerSlotBase getSlotForContainerInv(Container container, int id){
 				if (containerSlotMap.get(id) != null){
 					return containerSlotMap.get(id).apply(container);
@@ -130,7 +131,7 @@ public final class ServerGuiBuilder {
 				if (defaultContainerSlot != null){
 					return defaultContainerSlot.apply(container, id);
 				}
-				return super.getSlotForContainerInv(container, id);
+				return new ServerSlotDisplay(container, id);
 			}
 			public ServerSlotBase getSlotForPlayerInv(Container playerInventory, int id){
 				if (playerSlotMap.get(id) != null){

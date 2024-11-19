@@ -68,7 +68,8 @@ public class ServerGuiBase extends MenuContainer {
 		Integer[] nums = targets.toArray(new Integer[0]);
 		boolean needResync = false;
 		for (int i : nums){
-			if (!getSlot(i).mayPlace(slot.getItem())){ // Make it so you can't target non interaction slots
+			Slot slot1 = getSlot(i);
+			if (!slot1.mayPlace(slot.getItem()) || !slot1.allowItemInteraction()){ // Make it so you can't target non interaction slots
 				targets.remove((Integer) i);
 				needResync = true;
 			}
