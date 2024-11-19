@@ -4,6 +4,7 @@ import com.mojang.nbt.CompoundTag;
 import net.minecraft.core.item.ItemStack;
 import org.useless.serverlibe.config.YamlConfiguration;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ public class ItemStackYamlAdapter implements YamlAdapter<ItemStack>{
 	}
 
 	@Override
-	public ItemStack deserialize(Map<String, Object> data) {
+	public ItemStack deserialize(Map<String, Object> data) throws IOException {
 		int id = (int) data.get("id");
 		if (id < 0) return null;
 		int meta = (int) data.get("damage");

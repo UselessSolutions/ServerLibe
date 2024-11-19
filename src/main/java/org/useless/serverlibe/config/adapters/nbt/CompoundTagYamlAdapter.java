@@ -4,10 +4,11 @@ import com.mojang.nbt.CompoundTag;
 import com.mojang.nbt.Tag;
 import org.useless.serverlibe.config.YamlConfiguration;
 
+import java.io.IOException;
 import java.util.Map;
 public class CompoundTagYamlAdapter extends NBTTagYamlAdapter<CompoundTag> {
 	@Override
-	public CompoundTag deserialize(Map<String, Object> data) {
+	public CompoundTag deserialize(Map<String, Object> data) throws IOException {
 		CompoundTag compoundTag = new CompoundTag();
 		System.out.println(data);
 		for (Map.Entry<String, Object> e : data.entrySet()){

@@ -68,7 +68,7 @@ public class YamlConfiguration {
 	public String getAsString(String key){
 		return (String) data.get(key);
 	}
-	public <T> T getAsClass(String key, Class<T> classOfT){
+	public <T> T getAsClass(String key, Class<T> classOfT) throws IOException {
 		if (registeredAdapters.containsKey(classOfT)){
 			return (T) registeredAdapters.get(classOfT).deserialize((Map<String, Object>) data.get(key));
 		}
@@ -98,7 +98,7 @@ public class YamlConfiguration {
 			throw new RuntimeException(e);
 		}
 	}
-	public static <T> T getMapAsObject(Map<String, Object> map, Class<T> classOfT){
+	public static <T> T getMapAsObject(Map<String, Object> map, Class<T> classOfT) throws IOException {
 		return (T) registeredAdapters.get(classOfT).deserialize(map);
 	}
 	private static Object getAsYamlDataObject(Object o){
