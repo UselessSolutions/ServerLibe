@@ -20,7 +20,7 @@ public class ServerPlayerMixinFixSyncNBT {
 
 	@Inject
 		(
-			method = "Lnet/minecraft/server/entity/player/PlayerServer;updateCraftingInventory(Lnet/minecraft/core/player/inventory/menu/MenuAbstract;Ljava/util/List;)V",
+			method = "updateCraftingInventory(Lnet/minecraft/core/player/inventory/menu/MenuAbstract;Ljava/util/List;)V",
 			at = @At
 				(
 					value = "INVOKE",
