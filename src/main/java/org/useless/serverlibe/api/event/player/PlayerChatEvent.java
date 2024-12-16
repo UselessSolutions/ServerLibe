@@ -1,6 +1,6 @@
 package org.useless.serverlibe.api.event.player;
 
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 import org.useless.serverlibe.api.event.Cancellable;
 import org.useless.serverlibe.internal.EventContainer;
@@ -15,7 +15,7 @@ public class PlayerChatEvent extends PlayerEvent implements Cancellable {
 
     public PlayerChatEvent
 		(
-			@NotNull final EntityPlayer player,
+			@NotNull final Player player,
 			@NotNull final String message
 		)
 	{

@@ -1,7 +1,7 @@
 package org.useless.serverlibe.config.adapters.nbt;
 
-import com.mojang.nbt.CompoundTag;
-import com.mojang.nbt.Tag;
+import com.mojang.nbt.tags.CompoundTag;
+import com.mojang.nbt.tags.Tag;
 import org.useless.serverlibe.config.YamlConfiguration;
 
 import java.io.IOException;

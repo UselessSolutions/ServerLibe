@@ -1,6 +1,6 @@
 package org.useless.serverlibe.config.adapters;
 
-import com.mojang.nbt.CompoundTag;
+import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.item.ItemStack;
 import org.useless.serverlibe.config.YamlConfiguration;
 

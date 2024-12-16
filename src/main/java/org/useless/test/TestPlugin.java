@@ -1,9 +1,9 @@
 package org.useless.test;
 
-import com.mojang.nbt.ByteArrayTag;
-import com.mojang.nbt.DoubleArrayTag;
+import com.mojang.nbt.tags.ByteArrayTag;
+import com.mojang.nbt.tags.DoubleArrayTag;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.core.block.Block;
+import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.ItemStack;
 import org.useless.serverlibe.ServerLibe;
 import org.useless.serverlibe.api.ServerLibeEntrypoint;
@@ -26,7 +26,7 @@ public class TestPlugin implements ServerLibeEntrypoint {
 		configuration.addDefault("test3", 1.2);
 		configuration.addDefault("test4", new ByteArrayTag(new byte[]{1, 2, 3, 4}));
 		configuration.addDefault("test5", new DoubleArrayTag(new double[]{1.1, 2.2, 3.3, 4.4}));
-		ItemStack testStack = Block.blockDiamond.getDefaultStack();
+		ItemStack testStack = Blocks.BLOCK_DIAMOND.getDefaultStack();
 		testStack.setCustomName("testName");
 		configuration.addDefault("testItemStack", testStack);
 		configuration.save(config);

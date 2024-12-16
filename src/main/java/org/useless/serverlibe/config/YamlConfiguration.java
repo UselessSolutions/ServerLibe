@@ -1,10 +1,10 @@
 package org.useless.serverlibe.config;
 
-import com.mojang.nbt.ByteArrayTag;
-import com.mojang.nbt.ByteTag;
-import com.mojang.nbt.CompoundTag;
-import com.mojang.nbt.DoubleArrayTag;
-import com.mojang.nbt.StringTag;
+import com.mojang.nbt.tags.ByteArrayTag;
+import com.mojang.nbt.tags.ByteTag;
+import com.mojang.nbt.tags.CompoundTag;
+import com.mojang.nbt.tags.DoubleArrayTag;
+import com.mojang.nbt.tags.StringTag;
 import net.minecraft.core.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.useless.serverlibe.ServerLibe;

@@ -1,13 +1,13 @@
 package org.useless.serverlibe.api.event.player.inventory;
 
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 import org.useless.serverlibe.internal.EventContainer;
 
 public class InventoryCloseEvent extends InventoryEvent {
 	public InventoryCloseEvent
 		(
-			@NotNull EntityPlayer player,
+			@NotNull Player player,
 			final int windowID
 		)
 	{

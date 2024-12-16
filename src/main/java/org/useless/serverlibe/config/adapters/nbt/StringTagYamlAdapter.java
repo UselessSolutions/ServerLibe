@@ -1,6 +1,6 @@
 package org.useless.serverlibe.config.adapters.nbt;
 
-import com.mojang.nbt.StringTag;
+import com.mojang.nbt.tags.StringTag;
 
 public class StringTagYamlAdapter extends NBTTagYamlAdapter<StringTag> {
 

@@ -1,6 +1,6 @@
 package org.useless.serverlibe.api.event.player;
 
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.useless.serverlibe.api.event.Cancellable;
@@ -15,27 +15,25 @@ public class PlayerMovementEvent extends PlayerEvent implements Cancellable {
 	public final double yPosition;
 	public final double zPosition;
 	public final double distanceMoved;
-	public final double stance;
 	public final float yaw;
 	public final float pitch;
 	public final boolean onGround;
-	public final boolean moving;
-	public final boolean rotating;
+	public final boolean hasPosition;
+	public final boolean hasRotation;
 
     public PlayerMovementEvent
 	(
-		@NotNull final EntityPlayer player,
+		@NotNull final Player player,
 		@NotNull final World world,
 		final double xPos,
 		final double yPos,
 		final double zPos,
 		final double distanceMoved,
-		final double stance,
 		final float yaw,
 		final float pitch,
 		final boolean onGround,
-		final boolean moving,
-		final boolean rotating
+		final boolean hasPosition,
+		final boolean hasRotation
 	)
 	{
 		super(player);
@@ -44,12 +42,11 @@ public class PlayerMovementEvent extends PlayerEvent implements Cancellable {
         this.yPosition = yPos;
         this.zPosition = zPos;
 		this.distanceMoved = distanceMoved;
-        this.stance = stance;
         this.yaw = yaw;
         this.pitch = pitch;
         this.onGround = onGround;
-        this.moving = moving;
-        this.rotating = rotating;
+        this.hasPosition = hasPosition;
+        this.hasRotation = hasRotation;
     }
 	private boolean cancelled = false;
 	@Override

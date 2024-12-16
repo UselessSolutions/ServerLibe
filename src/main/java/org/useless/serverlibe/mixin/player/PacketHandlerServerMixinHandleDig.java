@@ -1,9 +1,9 @@
 package org.useless.serverlibe.mixin.player;
 
-import net.minecraft.core.net.packet.Packet53BlockChange;
+import net.minecraft.core.net.packet.PacketBlockUpdate;
 import net.minecraft.core.util.helper.Side;
-import net.minecraft.server.entity.player.EntityPlayerMP;
-import net.minecraft.server.net.handler.NetServerHandler;
+import net.minecraft.server.entity.player.PlayerServer;
+import net.minecraft.server.net.handler.PacketHandlerServer;
 import net.minecraft.server.world.ServerPlayerController;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,14 +15,14 @@ import org.useless.serverlibe.api.event.player.PlayerDigEvent;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-@Mixin(value = NetServerHandler.class, remap = false)
-public class NetServerHandlerMixinHandleDig {
+@Mixin(value = PacketHandlerServer.class, remap = false)
+public class PacketHandlerServerMixinHandleDig {
 	@Shadow
-	private EntityPlayerMP playerEntity;
+	private PlayerServer playerEntity;
 
 	@Redirect
 		(
-			method = "handleBlockDig(Lnet/minecraft/core/net/packet/Packet14BlockDig;)V",
+			method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handleBlockDig(Lnet/minecraft/core/net/packet/PacketPlayerAction;)V",
 			at = @At
 				(
 					value = "INVOKE",
@@ -43,7 +43,7 @@ public class NetServerHandlerMixinHandleDig {
 
 	@Redirect
 		(
-			method = "handleBlockDig(Lnet/minecraft/core/net/packet/Packet14BlockDig;)V",
+			method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handleBlockDig(Lnet/minecraft/core/net/packet/PacketPlayerAction;)V",
 			at = @At
 				(
 					value = "INVOKE",
@@ -59,7 +59,7 @@ public class NetServerHandlerMixinHandleDig {
 	}
 	@Redirect
 		(
-			method = "handleBlockDig(Lnet/minecraft/core/net/packet/Packet14BlockDig;)V",
+			method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handleBlockDig(Lnet/minecraft/core/net/packet/PacketPlayerAction;)V",
 			at = @At
 				(
 					value = "INVOKE",
@@ -89,7 +89,7 @@ public class NetServerHandlerMixinHandleDig {
 
 		if (playerDigEvent.isCancelled()) {
 			// Restores the block on break if cancelled, this fixed the vanilla bug where instantly broken blocks don't reset
-			this.playerEntity.playerNetServerHandler.sendPacket(new Packet53BlockChange(playerDigEvent.x, playerDigEvent.y, playerDigEvent.z, playerDigEvent.world));
+			this.playerEntity.playerNetServerHandler.sendPacket(new PacketBlockUpdate(playerDigEvent.x, playerDigEvent.y, playerDigEvent.z, playerDigEvent.world));
 		} else {
 			defaultAction.run();
 		}

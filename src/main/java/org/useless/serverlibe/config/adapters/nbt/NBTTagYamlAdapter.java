@@ -1,6 +1,6 @@
 package org.useless.serverlibe.config.adapters.nbt;
 
-import com.mojang.nbt.Tag;
+import com.mojang.nbt.tags.Tag;
 import org.useless.serverlibe.config.adapters.YamlAdapter;
 
 import java.io.IOException;

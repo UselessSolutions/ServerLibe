@@ -2,6 +2,8 @@ package org.useless.serverlibe.api.event.world;
 
 import net.minecraft.core.world.World;
 import net.minecraft.core.world.biome.Biome;
+import net.minecraft.core.world.biome.BiomeNether;
+import net.minecraft.core.world.biome.Biomes;
 import net.minecraft.core.world.chunk.Chunk;
 import net.minecraft.core.world.generate.chunk.ChunkDecorator;
 import org.jetbrains.annotations.NotNull;
@@ -48,6 +50,7 @@ public class ChunkDecorateEvent extends Event {
         this.biome = Objects.requireNonNull(biome);
         this.random = Objects.requireNonNull(random);
     }
+
 	private static final EventContainer eventContainer = new EventContainer();
 	@NotNull
 	public EventContainer getEvents() {

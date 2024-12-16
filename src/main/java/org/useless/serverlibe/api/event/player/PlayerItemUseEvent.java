@@ -1,6 +1,6 @@
 package org.useless.serverlibe.api.event.player;
 
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +15,7 @@ public class PlayerItemUseEvent extends PlayerEvent implements Cancellable {
 
     public PlayerItemUseEvent
 		(
-			@NotNull final EntityPlayer player,
+			@NotNull final Player player,
 			@NotNull final World world,
 			@NotNull final ItemStack itemstack
 		)

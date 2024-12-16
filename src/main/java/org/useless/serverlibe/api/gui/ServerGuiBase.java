@@ -1,34 +1,34 @@
 package org.useless.serverlibe.api.gui;
 
 import net.minecraft.core.InventoryAction;
-import net.minecraft.core.entity.player.EntityPlayer;
-import net.minecraft.core.player.inventory.ContainerChest;
-import net.minecraft.core.player.inventory.IInventory;
-import net.minecraft.core.player.inventory.InventoryBasic;
+import net.minecraft.core.entity.player.Player;
+import net.minecraft.core.player.inventory.container.Container;
+import net.minecraft.core.player.inventory.container.ContainerSimple;
+import net.minecraft.core.player.inventory.menu.MenuContainer;
 import net.minecraft.core.player.inventory.slot.Slot;
-import net.minecraft.server.entity.player.EntityPlayerMP;
+import net.minecraft.server.entity.player.PlayerServer;
 import org.jetbrains.annotations.NotNull;
 import org.useless.serverlibe.api.event.player.inventory.InventoryClickEvent;
 import org.useless.serverlibe.api.gui.slot.ServerSlotBase;
-import org.useless.serverlibe.mixin.accessors.ContainerChestAccessor;
+import org.useless.serverlibe.mixin.accessors.MenuContainerAccessor;
 
 import java.util.List;
 
-public class ServerGuiBase extends ContainerChest {
+public class ServerGuiBase extends MenuContainer {
 	public final String inventoryTitle;
 	public final int slotsCount;
-	public final IInventory inventory;
+	public final Container container;
 
-	public ServerGuiBase(EntityPlayer player, String inventoryTitle, int rowCount) {
-		super(player.inventory, new InventoryBasic(inventoryTitle, rowCount * 9));
-		this.inventory = ((ContainerChestAccessor)this).getContainerInventory();
+	public ServerGuiBase(Player player, String inventoryTitle, int rowCount) {
+		super(player.inventory, new ContainerSimple(inventoryTitle, rowCount * 9));
+		this.container = ((MenuContainerAccessor)this).getContainerInventory();
 		this.inventoryTitle = inventoryTitle;
 		this.slotsCount = rowCount * 9;
 
-        inventorySlots.clear();
+        slots.clear();
         for (int row = 0; row < rowCount; ++row) {
 			for (int col = 0; col < 9; ++col) {
-				this.addSlot(getSlotForContainerInv(inventory, col + row * 9));
+				this.addSlot(getSlotForContainerInv(container, col + row * 9));
 			}
 		}
 
@@ -41,10 +41,12 @@ public class ServerGuiBase extends ContainerChest {
 			this.addSlot(getSlotForPlayerInv(player.inventory, col));
 		}
 	}
-	public ServerSlotBase getSlotForContainerInv(IInventory containerInventory, int id){
+
+	public ServerSlotBase getSlotForContainerInv(Container containerInventory, int id) {
 		return new ServerSlotBase(containerInventory, id);
 	}
-	public ServerSlotBase getSlotForPlayerInv(IInventory playerInventory, int id){
+
+	public ServerSlotBase getSlotForPlayerInv(Container playerInventory, int id) {
 		return new ServerSlotBase(playerInventory, id);
 	}
 
@@ -61,12 +63,13 @@ public class ServerGuiBase extends ContainerChest {
 		}
 	}
 	@Override
-	public List<Integer> getTargetSlots(InventoryAction action, Slot slot, int target, EntityPlayer player) {
+	public List<Integer> getTargetSlots(InventoryAction action, Slot slot, int target, Player player) {
 		List<Integer> targets = super.getTargetSlots(action, slot, target, player);
 		Integer[] nums = targets.toArray(new Integer[0]);
 		boolean needResync = false;
 		for (int i : nums){
-			if (!getSlot(i).canPutStackInSlot(slot.getStack())){ // Make it so you can't target non interaction slots
+			Slot slot1 = getSlot(i);
+			if (!slot1.mayPlace(slot.getItem()) || !slot1.allowItemInteraction()){ // Make it so you can't target non interaction slots
 				targets.remove((Integer) i);
 				needResync = true;
 			}
@@ -76,9 +79,9 @@ public class ServerGuiBase extends ContainerChest {
 		}
 		return targets;
 	}
-	public void resyncGUI(EntityPlayer player){
-		if (player instanceof EntityPlayerMP){
-			GuiHelper.syncInventory((EntityPlayerMP) player);
+	public void resyncGUI(Player player){
+		if (player instanceof PlayerServer){
+			GuiHelper.syncInventory((PlayerServer) player);
 		}
 	}
 
