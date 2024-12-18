@@ -73,7 +73,7 @@ public class TestFeatureListener implements Listener {
 	}
 	@EventListener(priority = Priority.HIGH, ignoreCancelled = true)
 	public void useStickSpecial(PlayerItemUseEvent useEvent){
-		if (useEvent.itemstack.getItem() == Items.STICK){
+		if (useEvent.itemstack.getItem().equals(Items.STICK)){
 			Vec3 look = useEvent.player.getLookAngle();
 			double vX = look.x;
 			double vY = look.y;
@@ -96,7 +96,7 @@ public class TestFeatureListener implements Listener {
 	}
 	@EventListener
 	public void onAttack(PlayerEntityInteractEvent interactEvent){
-		if (interactEvent.itemstack != null && interactEvent.itemstack.getItem() == Items.STICK){
+		if (interactEvent.itemstack != null && interactEvent.itemstack.getItem().equals(Items.STICK)){
 			EntityLightning lightningBolt = new EntityLightning(interactEvent.world, interactEvent.targetEntity.x, interactEvent.targetEntity.y, interactEvent.targetEntity.z);
 			interactEvent.world.addWeatherEffect(lightningBolt);
 			interactEvent.setCancelled(true);

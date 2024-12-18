@@ -42,7 +42,7 @@ public class GuiHelper {
 	public static void syncInventory(PlayerServer player){
 		ArrayList<ItemStack> arraylist = new ArrayList<>();
 		for (int i = 0; i < player.craftingInventory.slots.size(); ++i) {
-			arraylist.add(player.craftingInventory.slots.get(i).getItem());
+			arraylist.add(player.craftingInventory.slots.get(i).getItemStack());
 		}
 		player.updateCraftingInventory(player.craftingInventory, arraylist);
 		player.playerNetServerHandler.sendPacket(new PacketContainerSetSlot(-1, 0, player.inventory.getHeldItemStack()));

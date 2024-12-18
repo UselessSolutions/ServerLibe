@@ -18,7 +18,7 @@ import org.useless.serverlibe.api.gui.ServerGuiBuilder;
 public class GuiTestListener implements Listener {
 	@EventListener
 	public void openCustomGui(PlayerItemUseEvent useEvent){
-		if (useEvent.itemstack.getItem() == Items.BOOK && useEvent.itemstack.hasCustomName() && useEvent.itemstack.getCustomName().equalsIgnoreCase("gamemode book")){
+		if (useEvent.itemstack.getItem().equals(Items.BOOK) && useEvent.itemstack.hasCustomName() && useEvent.itemstack.getCustomName().equalsIgnoreCase("gamemode book")){
 			GuiHelper.openCustomServerGui((PlayerServer) useEvent.player,
 				new ServerGuiBuilder()
 					.setContainerSlot(0, (inventory -> {
