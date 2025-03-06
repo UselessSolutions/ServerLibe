@@ -8,13 +8,13 @@ import com.mojang.nbt.tags.StringTag;
 import net.minecraft.core.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.useless.serverlibe.ServerLibe;
-import org.useless.serverlibe.config.adapters.ItemStackYamlAdapter;
-import org.useless.serverlibe.config.adapters.YamlAdapter;
-import org.useless.serverlibe.config.adapters.nbt.ByteArrayTagYamlAdapter;
+/*import org.useless.serverlibe.config.adapters.ItemStackYamlAdapter;
+import org.useless.serverlibe.config.adapters.YamlAdapter;*/
+/*import org.useless.serverlibe.config.adapters.nbt.ByteArrayTagYamlAdapter;
 import org.useless.serverlibe.config.adapters.nbt.ByteTagYamlAdapter;
 import org.useless.serverlibe.config.adapters.nbt.CompoundTagYamlAdapter;
 import org.useless.serverlibe.config.adapters.nbt.DoubleArrayTagYamlAdapter;
-import org.useless.serverlibe.config.adapters.nbt.StringTagYamlAdapter;
+import org.useless.serverlibe.config.adapters.nbt.StringTagYamlAdapter;*/
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
@@ -29,7 +29,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class YamlConfiguration {
+/*public class YamlConfiguration {
 	@NotNull
 	private static final Map<Class<?>, YamlAdapter<?>> registeredAdapters = new HashMap<>();
 	static {
@@ -137,4 +137,4 @@ public class YamlConfiguration {
 		if (registeredAdapters.containsKey(classOf)) ServerLibe.LOGGER.warn("Class '" + classOf + "' already has a registered adapter, overriding previous!");
 		registeredAdapters.put(classOf, adapter);
 	}
-}
+}*/

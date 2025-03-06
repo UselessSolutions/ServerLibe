@@ -1,13 +1,13 @@
 package org.useless.serverlibe.config.adapters.nbt;
 
 import com.mojang.nbt.tags.Tag;
-import org.useless.serverlibe.config.adapters.YamlAdapter;
+/*import org.useless.serverlibe.config.adapters.YamlAdapter;*/
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class NBTTagYamlAdapter<T extends Tag<?>> implements YamlAdapter<T> {
+/*public abstract class NBTTagYamlAdapter<T extends Tag<?>> implements YamlAdapter<T> {
 	@Override
 	public Map<String, Object> serialize(T object) {
 		Map<String, Object> map = new HashMap<>();
@@ -18,10 +18,10 @@ public abstract class NBTTagYamlAdapter<T extends Tag<?>> implements YamlAdapter
 	}
 	@Override
 	public T deserialize(Map<String, Object> data) throws IOException {
-		T tag = (T) Tag.newTag(((Integer)data.get("id")).byteValue());
+		T tag = (T) Tag.newTag( ((Integer)data.get("id")).byteValue() );
 		tag.setName((String) data.get("name"));
 		setValue(tag,data.get("value"));
 		return tag;
 	}
 	public abstract void setValue(T tag, Object input);
-}
+}*/

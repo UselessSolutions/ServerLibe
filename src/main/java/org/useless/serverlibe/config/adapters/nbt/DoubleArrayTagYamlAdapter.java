@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DoubleArrayTagYamlAdapter extends NBTTagYamlAdapter<DoubleArrayTag>{
+/*public class DoubleArrayTagYamlAdapter extends NBTTagYamlAdapter<DoubleArrayTag>{
 	@Override
 	public Map<String, Object> serialize(DoubleArrayTag object) {
 		Map<String, Object> map = new HashMap<>();
@@ -30,4 +30,4 @@ public class DoubleArrayTagYamlAdapter extends NBTTagYamlAdapter<DoubleArrayTag>
 		}
 		tag.setValue(arr);
 	}
-}
+}*/

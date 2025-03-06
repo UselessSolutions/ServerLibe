@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ByteArrayTagYamlAdapter extends NBTTagYamlAdapter<ByteArrayTag>{
+/*public class ByteArrayTagYamlAdapter extends NBTTagYamlAdapter<ByteArrayTag>{
 	@Override
 	public Map<String, Object> serialize(ByteArrayTag object) {
 		Map<String, Object> map = new HashMap<>();
@@ -31,4 +31,4 @@ public class ByteArrayTagYamlAdapter extends NBTTagYamlAdapter<ByteArrayTag>{
 		tag.setValue(arr);
     }
 
-}
+}*/

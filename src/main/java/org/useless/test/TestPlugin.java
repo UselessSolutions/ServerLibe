@@ -7,7 +7,7 @@ import net.minecraft.core.block.Blocks;
 import net.minecraft.core.item.ItemStack;
 import org.useless.serverlibe.ServerLibe;
 import org.useless.serverlibe.api.ServerLibeEntrypoint;
-import org.useless.serverlibe.config.YamlConfiguration;
+/*import org.useless.serverlibe.config.YamlConfiguration;*/
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class TestPlugin implements ServerLibeEntrypoint {
 		ServerLibe.registerListener(new DebugInfoListener());
 		ServerLibe.registerListener(new GuiTestListener());
 
-		File config = new File(FabricLoader.getInstance().getConfigDir() + "/test.yml");
+		/*File config = new File(FabricLoader.getInstance().getConfigDir() + "/test.yml");
 		YamlConfiguration configuration = YamlConfiguration.loadConfiguration(config);
 		configuration.addDefault("test1", "val1");
 		configuration.addDefault("test2", 1);
@@ -38,7 +38,7 @@ public class TestPlugin implements ServerLibeEntrypoint {
 		System.out.printf("Test4 : %s\n", configuration.getAsClass("test4", ByteArrayTag.class).getValue()[3] == 4);
 		System.out.printf("Test5 : %s\n", configuration.getAsClass("test5", DoubleArrayTag.class).getValue()[3] == 4.4);
 		System.out.printf("TestStack : %s\n", configuration.getAsClass("testItemStack", ItemStack.class).isStackEqual(testStack));
-		System.out.printf("TestStack Name: %s\n", configuration.getAsClass("testItemStack", ItemStack.class).getDisplayName());
+		System.out.printf("TestStack Name: %s\n", configuration.getAsClass("testItemStack", ItemStack.class).getDisplayName());*/
 
 //		throw new RuntimeException();
     }

@@ -2,11 +2,11 @@ package org.useless.serverlibe.config.adapters.nbt;
 
 import com.mojang.nbt.tags.CompoundTag;
 import com.mojang.nbt.tags.Tag;
-import org.useless.serverlibe.config.YamlConfiguration;
+/*import org.useless.serverlibe.config.YamlConfiguration;*/
 
 import java.io.IOException;
 import java.util.Map;
-public class CompoundTagYamlAdapter extends NBTTagYamlAdapter<CompoundTag> {
+/*public class CompoundTagYamlAdapter extends NBTTagYamlAdapter<CompoundTag> {
 	@Override
 	public CompoundTag deserialize(Map<String, Object> data) throws IOException {
 		CompoundTag compoundTag = new CompoundTag();
@@ -24,4 +24,4 @@ public class CompoundTagYamlAdapter extends NBTTagYamlAdapter<CompoundTag> {
 	public void setValue(CompoundTag tag, Object input) {
 		return;
 	}
-}
+}*/

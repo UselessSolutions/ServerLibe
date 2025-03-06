@@ -2,13 +2,13 @@ package org.useless.serverlibe.config.adapters;
 
 import com.mojang.nbt.tags.CompoundTag;
 import net.minecraft.core.item.ItemStack;
-import org.useless.serverlibe.config.YamlConfiguration;
+/*import org.useless.serverlibe.config.YamlConfiguration;*/
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class ItemStackYamlAdapter implements YamlAdapter<ItemStack>{
+/*public class ItemStackYamlAdapter implements YamlAdapter<ItemStack>{
 	@Override
 	public Map<String, Object> serialize(ItemStack object) {
 		Map<String, Object> map = new LinkedHashMap<>();
@@ -41,4 +41,4 @@ public class ItemStackYamlAdapter implements YamlAdapter<ItemStack>{
 		}
 		return new ItemStack(id, stacksize, meta, tag);
 	}
-}
+}*/
