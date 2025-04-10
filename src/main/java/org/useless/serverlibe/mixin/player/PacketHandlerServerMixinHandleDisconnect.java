@@ -1,6 +1,5 @@
 package org.useless.serverlibe.mixin.player;
 
-import net.minecraft.core.net.packet.PacketDisconnect;
 import net.minecraft.server.entity.player.PlayerServer;
 import net.minecraft.server.net.handler.PacketHandlerServer;
 import org.spongepowered.asm.mixin.Mixin;
