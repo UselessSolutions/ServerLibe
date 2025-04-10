@@ -20,6 +20,8 @@
   "client": [
   ],
   "server": [
+    "player.PacketHandlerServerMixinHandleConnect",
+    "player.PacketHandlerServerMixinHandleDisconnect",
     "server.MinecraftServerMixinHandleTick",
     "world.WorldServerMixinHandleTick",
     "world.decorator.ChunkDecoratorNetherMixin",
