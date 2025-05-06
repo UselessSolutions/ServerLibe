@@ -18,7 +18,7 @@ public class PacketHandlerServerMixinItemUse {
 			at = @At
 				(
 					value = "INVOKE",
-					target = "Lnet/minecraft/server/world/ServerPlayerController;useItemOnNothing(Lnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/world/World;Lnet/minecraft/core/item/ItemStack;)Z"
+					target = "Lnet/minecraft/server/world/ServerPlayerController;useItemStackOnNothing(Lnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/world/World;Lnet/minecraft/core/item/ItemStack;)Z"
 				)
 		)
 	public boolean serverlibe$onItemRightClick(ServerPlayerController instance, Player entityplayer, World world, ItemStack itemstack){
@@ -26,7 +26,7 @@ public class PacketHandlerServerMixinItemUse {
 
 		final boolean returnVal;
 		if (!itemUseEvent.isCancelled()){
-			returnVal = instance.useItemOnNothing(entityplayer, world, itemstack);
+			returnVal = instance.useItemStackOnNothing(entityplayer, world, itemstack);
 		} else {
 			returnVal = false;
 		}

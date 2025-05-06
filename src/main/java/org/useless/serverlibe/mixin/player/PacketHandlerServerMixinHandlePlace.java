@@ -18,11 +18,11 @@ public class PacketHandlerServerMixinHandlePlace {
 
     @Redirect
 		(
-		method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handlePlace(Lnet/minecraft/core/net/packet/PacketUseItem;)V",
+		method = "handlePlace",
 		at = @At
 			(
 			value = "INVOKE",
-			target = "Lnet/minecraft/server/world/ServerPlayerController;useItemOn(Lnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/world/World;Lnet/minecraft/core/item/ItemStack;IIILnet/minecraft/core/util/helper/Side;DD)Z"
+			target = "Lnet/minecraft/server/world/ServerPlayerController;useOrPlaceItemStackOnTile(Lnet/minecraft/core/entity/player/Player;Lnet/minecraft/core/world/World;Lnet/minecraft/core/item/ItemStack;IIILnet/minecraft/core/util/helper/Side;DD)Z"
 			)
 		)
 	public boolean serverlibe$onBlockPlaced
@@ -44,7 +44,7 @@ public class PacketHandlerServerMixinHandlePlace {
 
 		final boolean returnVal;
 		if (!playerItemPlaceEvent.isCancelled()){
-			returnVal = controller.useItemOn(playerEntity, world, itemstack, x, y, z, side, xPlaced, yPlaced);
+			returnVal = controller.useOrPlaceItemStackOnTile(playerEntity, world, itemstack, x, y, z, side, xPlaced, yPlaced);
 		} else {
 			returnVal = false;
 		}
