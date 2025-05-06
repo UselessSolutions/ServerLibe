@@ -1,4 +1,7 @@
 package org.useless.serverlibe.api;
+
+import java.io.IOException;
+
 @FunctionalInterface
 public interface ServerLibeEntrypoint {
 	/**
@@ -12,5 +15,5 @@ public interface ServerLibeEntrypoint {
 	 * @author Useless
 	 * @since beta.1
 	 */
-	void serverlibeInit();
+	void serverlibeInit() throws IOException;
 }

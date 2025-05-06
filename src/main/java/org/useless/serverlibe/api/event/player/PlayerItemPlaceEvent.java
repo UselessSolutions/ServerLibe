@@ -1,6 +1,6 @@
 package org.useless.serverlibe.api.event.player;
 
-import net.minecraft.core.entity.player.EntityPlayer;
+import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.item.ItemStack;
 import net.minecraft.core.util.helper.Side;
 import net.minecraft.core.world.World;
@@ -24,7 +24,7 @@ public class PlayerItemPlaceEvent extends PlayerEvent implements Cancellable {
 	public final double xPlaced;
 	public final double yPlaced;
 	public PlayerItemPlaceEvent(
-		@NotNull final EntityPlayer entityplayer,
+		@NotNull final Player entityplayer,
 		@NotNull final World world,
 		@Nullable final ItemStack itemstack,
 		final int x,

@@ -1,8 +1,8 @@
 package org.useless.serverlibe.mixin.player;
 
-import net.minecraft.server.entity.player.EntityPlayerMP;
+import net.minecraft.server.entity.player.PlayerServer;
 import net.minecraft.server.net.PlayerList;
-import net.minecraft.server.net.handler.NetServerHandler;
+import net.minecraft.server.net.handler.PacketHandlerServer;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -10,14 +10,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.useless.serverlibe.api.event.player.PlayerChatEvent;
 
-@Mixin(value = NetServerHandler.class, remap = false)
-public class NetServerHandlerMixinHandleChat {
+@Mixin(value = PacketHandlerServer.class, remap = false)
+public class PacketHandlerServerMixinHandleChat {
 	@Shadow
-	private EntityPlayerMP playerEntity;
+	private PlayerServer playerEntity;
 
 	@Redirect
 		(
-			method = "handleChat(Lnet/minecraft/core/net/packet/Packet3Chat;)V",
+			method = "Lnet/minecraft/server/net/handler/PacketHandlerServer;handleChat(Lnet/minecraft/core/net/packet/PacketChat;)V",
 			at = @At
 				(
 					value = "INVOKE",
